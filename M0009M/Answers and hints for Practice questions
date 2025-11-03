@@ -1,0 +1,322 @@
+# 🧮 Discrete Mathematics – Full Solutions & Hints (VS Code Edition)
+# Matches: DiscreteMathematics_Practice_Questions_Full_VSC_EN.md
+
+Format: For each problem: **HINT** then **SOLUTION**. Steps are concise but complete.
+
+---
+
+## K1. Combinatorics (Kombinatorik)
+
+### Core Problems
+1. **HINT:** Multiplication principle; remove forbidden choices in (b).  
+   **SOLUTION:** (a) 3·4·2 = **24**. (b) (3−1)(4−1)·2 = 2·3·2 = **12**.
+
+2. **HINT:** Permutations without repetition.  
+   **SOLUTION:** P(5,3) = 5·4·3 = **60**.
+
+3. **HINT:** Complement: total − no A.  
+   **SOLUTION:** 3^5 − 2^5 = **211**.
+
+4. **HINT:** Multiset permutations.  
+   **SOLUTION:** 6!/(3!·2!) = **60**.
+
+5. **HINT:** Combinations vs permutations.  
+   **SOLUTION:** C(12,5) = **792**; P(12,5) = 12·11·10·9·8 = **95,040**.
+
+6. **HINT:** Stars and bars for x1+x2+x3=10.  
+   **SOLUTION:** C(10+3−1,3−1) = C(12,2) = **66**.
+
+7. **HINT:** Binomial term with k=5.  
+   **SOLUTION:** C(8,5)·2^5·3^3 = 56·32·27 = **48,384**.
+
+8. **HINT:** Lattice paths: choose positions of rights/up.  
+   **SOLUTION:** C(10,4) = **210**.
+
+9. **HINT:** Count all subsets two ways.  
+   **SOLUTION:** Left = total subsets = 2^n; right = sum over sizes. Hence identity holds.
+
+### Extra Practice
+10. **HINT:** 26^3 · 10^3 (assuming 26 letters).  
+    **SOLUTION:** **17,576,000**.
+
+11. **HINT:** Choose women then men; sum cases.  
+    **SOLUTION:** C(8,2)C(6,2)+C(8,3)C(6,1)+C(8,4) = 28·15 + 56·6 + 70 = **910**.
+
+12. **HINT:** STATISTICS has letters: S(3), T(3), A(1), I(2), C(1).  
+    **SOLUTION:** 10!/(3!·3!·2!) = **5,040**.
+
+---
+
+## K2. Logic and Set Theory (Logik och mängdlära)
+
+### Core Problems
+1. **HINT:** Use p→q ≡ ¬p∨q.  
+   **SOLUTION:** (¬p∨q)↔(¬p∨q) is always T ⇒ **tautology**.
+
+2. **HINT:** De Morgan + distribution.  
+   **SOLUTION:** ¬(p ∧ (q ∨ ¬r)) ≡ ¬p ∨ (¬q ∧ r).
+
+3. **HINT:** ∀/∃ and negation moves inward.  
+   **SOLUTION:** Translate: ∀s ∃c Loves(s,c). Negation: ∃s ∀c ¬Loves(s,c).
+
+4. **HINT:** Prove ⊆ both ways.  
+   **SOLUTION:** Standard element argument shows equality.
+
+5. **HINT:** Each element chosen/not chosen.  
+   **SOLUTION:** **2^n** subsets.
+
+6. **HINT:** Inclusion–exclusion.  
+   **SOLUTION:** |M∪F∪C| = 18+15+12 − (6+5+4) + 2 = **32**. If class size is 25 ⇒ at least one = **25**, none = **0** (data otherwise inconsistent).
+
+7. **HINT:** Can one x work for all y?  
+   **SOLUTION:** In ℤ and ℝ: false. No fixed x satisfies x+y=0 for all y.
+
+8. **HINT:** Contrapositive or parity.  
+   **SOLUTION:** If n odd ⇒ n=2k+1 ⇒ n² odd. Therefore original statement true.
+
+### Extra Practice
+9. **HINT:** Truth table or derivation.  
+   **SOLUTION:** The formula is **tautology** (hypothetical syllogism).
+
+10. **HINT:** “Everyone loves someone” = ∀x ∃y L(x,y).  
+    **SOLUTION:** Negation: ∃x ∀y ¬L(x,y).
+
+11. **HINT:** Region algebra.  
+    **SOLUTION:** Shade intersection of A with (B or not C).
+
+---
+
+## K3. The Integers (Heltalen)
+
+### Core Problems
+1. **HINT:** Induction base n=1; step n→n+1.  
+   **SOLUTION:** Standard proof gives formula.
+
+2. **HINT:** Multiply inductive hypothesis by 3.  
+   **SOLUTION:** True for all n≥0.
+
+3. **HINT:** Recurrence uses integer addition.  
+   **SOLUTION:** By induction, all F_n are integers.
+
+4. **HINT:** Euclid + back substitution.  
+   **SOLUTION:** gcd=**12**; 12 = 3·420 − 13·96.
+
+5. **HINT:** Factor n(n−1)(n+1).  
+   **SOLUTION:** Among three consecutive integers, one multiple of 3 ⇒ divisible.
+
+6. **HINT:** Euclid’s classic proof.  
+   **SOLUTION:** Contradiction shows **infinitely many primes**.
+
+7. **HINT:** Bézout: au+bv=1.  
+   **SOLUTION:** Multiply by c; since a|bc and gcd(a,b)=1 ⇒ a|c.
+
+### Extra Practice
+8. **HINT:** Pair terms or use induction.  
+   **SOLUTION:** Sum of first n odds = **n²**.
+
+9. **HINT:** Euclid then express gcd as Z-combo.  
+   **SOLUTION:** gcd(270,192)=**6**; find u,v with 270u+192v=6 (e.g., u=−5, v=7).
+
+10. **HINT:** Use 4^n ≡ 1 (mod 3).  
+    **SOLUTION:** 2^(2n)−1 = 4^n − 1 divisible by 3 ⇒ **true**.
+
+---
+
+## K4. Relations and Functions (Relationer och funktioner)
+
+### Core Problems
+1. **SOLUTION:** ≤ is reflexive, antisymmetric, transitive; not symmetric.
+
+2. **SOLUTION:** Classes: [0]={...,−8,−4,0,4,8,...}; [1]={...,−7,−3,1,5,...}; [2]={...,−6,−2,2,6,...}; [3]={...,−5,−1,3,7,...}.
+
+3. **SOLUTION:** Injective (2x1+1=2x2+1 ⇒ x1=x2). Not surjective onto ℤ (only odd outputs). Not bijective ℤ→ℤ.
+
+4. **SOLUTION:** Define f⁻¹ by f⁻¹(f(x))=x; bijection gives inverse exists and is unique.
+
+5. **SOLUTION:** 13 people, 12 months ⇒ pigeonhole ⇒ two share a month.
+
+6. **SOLUTION:** 28 students, 21 possible scores ⇒ two share a score.
+
+### Extra Practice
+7. **SOLUTION:** Reflexive (same birthday), symmetric, transitive by equality of dates ⇒ equivalence.
+
+8. **SOLUTION:** 4^3 = **64** functions.
+
+9. **SOLUTION:** Composition of bijections is bijection (injective+surjective preserved).
+
+---
+
+## K5. Inclusion/Exclusion (Inklusion/Exklusion)
+
+### Core Problems
+1. **SOLUTION:** |A∪B| = 30+25−12 = **43**. |A\B| = 30−12 = **18**.
+
+2. **SOLUTION:** |A∪B∪C| = 20+18+17 − (7+6+5) + 3 = **40**.
+
+3. **HINT:** IE on multiples.  
+   **SOLUTION:** ⌊100/2⌋=50, ⌊100/3⌋=33, ⌊100/5⌋=20; subtract doubles: 16,10,6; add triple: 3 ⇒ **74**.
+
+4. **HINT:** Dₙ = n! ∑_{k=0}^n (−1)^k/k!.  
+   **SOLUTION:** D₄ = 24(1 − 1 + 1/2 − 1/6 + 1/24) = **9**.
+
+5. **HINT:** Surjections by IE on empty images.  
+   **SOLUTION:** 3^5 − C(3,1)2^5 + C(3,2)1^5 = 243 − 96 + 3 = **150**.
+
+### Extra Practice
+6. **HINT:** Count 4∪6 minus 12.  
+   **SOLUTION:** ⌊200/4⌋=50, ⌊200/6⌋=33, ⌊200/12⌋=16 ⇒ 50+33−16 = **67**.
+
+7. **HINT:** Complement: total 3-digit − none with 7.  
+   **SOLUTION:** 900 − 9·9·9 = 900 − 729 = **171**.
+
+8. **HINT:** First digit 1–9; then permutations.  
+   **SOLUTION:** 9·9·8·7 = **4,536**.
+
+---
+
+## K6. Languages and Automata (Språk och automater)
+
+### Core Problems
+1. **SOLUTION:** L = { x01 : x ∈ {0,1}* }.
+
+2. **HINT:** Track last two symbols.  
+   **SOLUTION:** DFA with start S; on 0→T, on 1 stay S; from T on 1→A (accept), on 0 stay T; from A on 0→T, on 1→S.
+
+3. **HINT:** Two-state parity automaton.  
+   **SOLUTION:** One regex form: `(1*(01*01*)*)*` (any equivalent that enforces even number of 0’s).
+
+4. **HINT:** Pump a^p b^p; pumped string leaves L.  
+   **SOLUTION:** Standard pumping lemma contradiction ⇒ not regular.
+
+5. **HINT:** Constructions or closure theorems.  
+   **SOLUTION:** Regulars are closed under union & concatenation (product/NFA construction).
+
+### Extra Practice
+6. **SOLUTION:** DFA needing to count ≥2 ones: states {0,1,≥2}. Transitions increment count up to ≥2 (accept).
+
+7. **SOLUTION:** Regex for exactly one 0: `1*01*`.
+
+8. **SOLUTION:** Example non-regular but context-free: `{ a^n b^n : n≥0 }`.
+
+---
+
+## K7. Graphs (Kort om grafer)
+
+### Core Problems
+1. **SOLUTION:** deg(1)=2, deg(2)=3, deg(3)=2, deg(4)=2, deg(5)=3. Euler circuit: **no** (odd degrees). Hamilton cycle: **yes**, e.g., 1-2-3-4-5-1.
+
+2. **HINT:** Induction or ∑deg=2|E| with acyclicity.  
+   **SOLUTION:** Trees satisfy |E|=|V|−1.
+
+3. **SOLUTION:** BFS explores by layers (shortest paths in unweighted graphs). DFS goes deep (cycle detection, topological order in DAG).
+
+4. **HINT:** Sort edges by weight; add if no cycle.  
+   **SOLUTION:** Add AB(1), BD(2), BC(3) ⇒ total **6** (stop at 3 edges for 4 vertices).
+
+5. **HINT:** Combine two least frequent repeatedly.  
+   **SOLUTION:** One valid code (lengths optimal): a:2, b:3, c:3, d:3, e:3 (exact bitstrings depend on tie-breaking).
+
+### Extra Practice
+6. **HINT:** Handshaking lemma ⇒ odd count must be even; 3 is impossible.  
+   **SOLUTION:** **Impossible** (number of odd-degree vertices is even).
+
+7. **HINT:** Erdős–Gallai or Havel–Hakimi.  
+   **SOLUTION:** Sequence (4,3,3,2,2,2) is **graphical** (construct via Havel–Hakimi).
+
+8. **SOLUTION:** |E(K₇)| = C(7,2) = **21**.
+
+---
+
+## K8. Recurrence Relations (Rekurrensekvationer)
+
+### Core Problems
+1. **SOLUTION:** aₙ = 2·3^n.
+
+2. **HINT:** Homogeneous + particular constant.  
+   **SOLUTION:** aₙ = 6·2^n − 5.
+
+3. **HINT:** Characteristic r²−5r+6=0.  
+   **SOLUTION:** aₙ = 2^n + 3^n.
+
+4. **HINT:** Same recurrence holds; Binet optional.  
+   **SOLUTION:** Identity follows from F_{n+2}=F_{n+1}+F_n.
+
+5. **HINT:** T(n)=T(n−1)+T(n−2), T(1)=1, T(2)=2.  
+   **SOLUTION:** T(n)=F_{n+1}.
+
+### Extra Practice
+6. **HINT:** Fibonacci-like.  
+   **SOLUTION:** aₙ = F_{n+1} + 2F_n (or solve via characteristic r²−r−1=0 with initial values).
+
+7. **HINT:** Let A(n)=strings length n with no “11”.  
+   **SOLUTION:** A(n)=A(n−1)+A(n−2), A(1)=2, A(2)=3 ⇒ A(n)=F_{n+2}.
+
+8. **HINT:** Characteristic (r−2)²=0.  
+   **SOLUTION:** aₙ = (α + βn)·2^n; using a₀=1, a₁=4 ⇒ aₙ = (1 + n)·2^n.
+
+---
+
+## K9. Modular Arithmetic (Kongruensräkning)
+
+### Core Problems
+1. **HINT:** Extended Euclid.  
+   **SOLUTION:** 7⁻¹ ≡ **15 (mod 26)**.
+
+2. **HINT:** Divide by gcd.  
+   **SOLUTION:** 14x≡8 (mod 30) ⇒ 7x≡4 (mod 15). 7⁻¹≡13 ⇒ x≡52≡ **7 (mod 15)**.
+
+3. **HINT:** Use order mod 7.  
+   **SOLUTION:** 3^6≡1 ⇒ 3^100 ≡ 3^4 ≡ **4 (mod 7)**.
+
+4. **HINT:** CRT stepwise.  
+   **SOLUTION:** x ≡ **23 (mod 105)**.
+
+5. **HINT:** φ(n) and modular inverse.  
+   **SOLUTION:** n=143, φ=120, d≡7⁻¹ mod 120 ⇒ d=103. Encrypt m=20 ⇒ c≡**136**. Decrypt ⇒ **20**.
+
+### Extra Practice
+6. **HINT:** Solve mod 63.  
+   **SOLUTION:** x ≡ **41 (mod 63)** (one solution set).
+
+7. **HINT:** Euclid domain property or Fermat.  
+   **SOLUTION:** If p|ab and p prime ⇒ p|a or p|b (proof via gcd or modular inverses).
+
+8. **HINT:** Work mod 5 and mod 7, then CRT.  
+   **SOLUTION:** x²≡9 mod 5 ⇒ x≡±2; mod 7 ⇒ x≡±3. Solutions mod 35: **x ≡ 2, 13, 22, 33 (mod 35)**.
+
+---
+
+## K10. Review and Mixed Practice (Repetition)
+
+### Mixed Practice
+1. **HINT:** Total − all digits distinct.  
+   **SOLUTION:** 10^6 − P(10,6) = 1,000,000 − 151,200 = **848,800**.
+
+2. **HINT:** Truth table or derivation.  
+   **SOLUTION:** **Tautology** (hypothetical syllogism).
+
+3. **HINT:** Induction step adds (n+1)².  
+   **SOLUTION:** Standard proof gives formula.
+
+4. **HINT:** Havel–Hakimi.  
+   **SOLUTION:** **Graphical** (constructible).
+
+5. **HINT:** r²−r−2=0.  
+   **SOLUTION:** aₙ = **2^n**.
+
+6. **HINT:** Solve mod 3 and mod 5.  
+   **SOLUTION:** x ≡ **1, 4, 11, 14 (mod 15)**.
+
+### Extra Practice
+7. **HINT:** Choose 3 positions for 1’s.  
+   **SOLUTION:** C(6,3) = **20**.
+
+8. **HINT:** Square parity.  
+   **SOLUTION:** Any integer square ≡0 or 1 mod 4 ⇒ statement **true**.
+
+9. **HINT:** Bijections are permutations.  
+   **SOLUTION:** **5! = 120**.
+
+---
+
+**Notes:** Some constructions (DFA, Huffman trees, Havel–Hakimi steps) admit multiple correct forms. Any equivalent correct construction earns full credit.

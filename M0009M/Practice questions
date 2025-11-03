@@ -1,0 +1,194 @@
+# 📘 Discrete Mathematics – Full Practice Questions (VS Code Edition)
+# With Swedish section titles kept for reference
+
+Each topic (K1–K10) includes core exercises plus a few extra medium-level ones.  
+Simple English phrasing, same numbering as the Swedish version.
+
+---
+
+## K1. Combinatorics (Kombinatorik)
+
+### Core Problems
+1. A menu has 3 starters, 4 main dishes, and 2 desserts.  
+   a) How many different 3-course menus are possible?  
+   b) If 1 starter and 1 main dish are fish and you avoid fish, how many menus remain?  
+
+2. Using letters A, B, C, D, E – how many 3-letter words can you form without repetition?  
+
+3. Using alphabet {A, B, C} – how many 5-letter words contain at least one A?  
+
+4. How many distinct rearrangements of the word **BANANA**?  
+
+5. How many ways can you choose 5 people from 12? How many if order matters?  
+
+6. Find the number of non-negative integer solutions to `x1 + x2 + x3 = 10`.  
+
+7. Find the coefficient of `x^5` in `(2x + 3)^8`.  
+
+8. How many shortest paths exist from `(0,0)` to `(6,4)` on a grid?  
+
+9. Show combinatorially that `∑_{k=0}^n C(n,k) = 2^n`.
+
+### Extra Practice
+10. How many license plates consist of three letters followed by three digits?  
+11. In how many ways can you form a committee of 4 from 8 women and 6 men if at least 2 must be women?  
+12. How many distinct words can be made from **STATISTICS**?  
+
+---
+
+## K2. Logic and Set Theory (Logik och mängdlära)
+
+### Core Problems
+1. Build a truth table for `(p → q) ↔ (¬p ∨ q)`.  
+2. Simplify `¬(p ∧ (q ∨ ¬r))`.  
+3. Translate and correctly negate: “Every student has a course they love.”  
+4. Prove the set identity `A ∩ (B ∪ C) = (A ∩ B) ∪ (A ∩ C)`.  
+5. How many subsets exist for a set with `n` elements?  
+6. In a class: 18 like math (M), 15 physics (F), 12 chemistry (C).  
+   6 like both M and F, 5 both M and C, 4 both F and C, 2 like all three.  
+   How many like at least one subject? (If the class has 25 students, how many like none?)  
+7. Is the statement `∃x ∀y (x + y = 0)` true in ℤ? in ℝ?  
+8. Prove: “If n² is even, then n is even.”
+
+### Extra Practice
+9. Show with a truth table that `((p → q) ∧ (q → r)) → (p → r)` is a tautology.  
+10. Write the negation of “Everyone loves someone.”  
+11. Draw a 3-set Venn diagram and shade `A ∩ (B ∪ Cᶜ)`.
+
+---
+
+## K3. The Integers (Heltalen)
+
+### Core Problems
+1. Prove by induction that `1 + 2 + ... + n = n(n + 1)/2`.  
+2. Prove by induction that `3^n ≥ 2n + 1` for all n ≥ 0.  
+3. Show that the Fibonacci sequence `F₀ = 0, F₁ = 1, Fₙ₊₂ = Fₙ₊₁ + Fₙ` gives integers for all n.  
+4. Compute gcd(420, 96) and express it as `420a + 96b`.  
+5. Show that `3 | (n³ − n)` for all integers n.  
+6. Prove that there are infinitely many prime numbers.  
+7. Show: If a | bc and gcd(a,b)=1, then a | c.
+
+### Extra Practice
+8. Prove that `1 + 3 + 5 + ... + (2n−1) = n²`.  
+9. Find gcd(270, 192) and show `au + bv = gcd(a,b)`.  
+10. Prove by induction that `2^(2n) − 1` is divisible by 3 for all n≥1.
+
+---
+
+## K4. Relations and Functions (Relationer och funktioner)
+
+### Core Problems
+1. On {1,2,3}, let R be “≤”. Is R reflexive, symmetric, antisymmetric, transitive?  
+2. On ℤ, define `a ~ b` if `a ≡ b (mod 4)`. List the equivalence classes.  
+3. For f(x) = 2x + 1, is f injective, surjective, bijective (ℤ → ℤ)?  
+4. Show that if f is bijective, then its inverse f⁻¹ exists.  
+5. Use the pigeonhole principle: among 13 people, two share a birth month.  
+6. In a class of 28 students, each has a score between 0 and 20. Show that two students share a score.
+
+### Extra Practice
+7. Show that “has the same birthday” is an equivalence relation.  
+8. How many functions exist from a 3-element set to a 4-element set?  
+9. Show that the composition of two bijections is a bijection.
+
+---
+
+## K5. Inclusion/Exclusion (Inklusion/Exklusion)
+
+### Core Problems
+1. Given |A|=30, |B|=25, |A∩B|=12. Find |A∪B| and |A\B|.  
+2. |A|=20, |B|=18, |C|=17, |A∩B|=7, |A∩C|=6, |B∩C|=5, |A∩B∩C|=3. Find |A∪B∪C|.  
+3. How many integers ≤100 are divisible by 2, 3, or 5?  
+4. Find derangements D₄.  
+5. Find the number of surjective functions from a 5-element set to a 3-element set.
+
+### Extra Practice
+6. How many integers ≤200 are divisible by 4 or 6 but not by 12?  
+7. How many 3-digit numbers contain at least one 7?  
+8. How many 4-digit numbers have no repeated digits?  
+
+---
+
+## K6. Languages and Automata (Språk och automater)
+
+### Core Problems
+1. Define L = { w ∈ {0,1}* : w ends with “01” }.  
+2. Construct a DFA that recognizes L.  
+3. Give a regular expression for strings over {0,1} with an even number of 0’s.  
+4. Use the pumping lemma to show L = { aⁿbⁿ : n ≥ 0 } is not regular.  
+5. Show that regular languages are closed under union and concatenation.
+
+### Extra Practice
+6. Build a DFA that recognizes strings with at least two 1’s.  
+7. Give a regular expression for strings containing exactly one 0.  
+8. Give an example of a language that is not regular but is context-free.
+
+---
+
+## K7. Graphs (Kort om grafer)
+
+### Core Problems
+1. Given V={1,2,3,4,5}, E={(1,2),(2,3),(3,4),(4,5),(5,1),(2,5)}.  
+   Find the degree of each node. Is there an Euler circuit? A Hamilton cycle?  
+2. Show that a tree with n vertices has n−1 edges.  
+3. Explain the difference between BFS and DFS.  
+4. For weighted edges AB:1, AC:4, BC:3, BD:2, CD:5, find the MST using Kruskal’s algorithm.  
+5. Build a Huffman tree for frequencies a:7, b:6, c:6, d:4, e:3.
+
+### Extra Practice
+6. Draw a graph with 6 nodes having exactly 3 odd-degree vertices.  
+7. Decide if the degree sequence (4,3,3,2,2,2) is graphical.  
+8. Find the number of edges in the complete graph K₇.
+
+---
+
+## K8. Recurrence Relations (Rekurrensekvationer)
+
+### Core Problems
+1. aₙ = 3aₙ₋₁, a₀ = 2. Find aₙ.  
+2. aₙ = 2aₙ₋₁ + 5, a₀ = 1. Find closed form.  
+3. aₙ = 5aₙ₋₁ − 6aₙ₋₂, a₀=2, a₁=5. Find aₙ.  
+4. Show that F_{n+2} − 1 = F_{n+1} + F_n − 1 follows the same recurrence.  
+5. Domino tiling: for a 2×n board, find a recurrence relation.
+
+### Extra Practice
+6. Solve aₙ = aₙ₋₁ + aₙ₋₂, a₀=1, a₁=3.  
+7. Find the recurrence for the number of binary strings without consecutive 1’s.  
+8. Solve aₙ = 4aₙ₋₁ − 4aₙ₋₂, a₀=1, a₁=4.
+
+---
+
+## K9. Modular Arithmetic (Kongruensräkning)
+
+### Core Problems
+1. Find 7⁻¹ mod 26.  
+2. Solve 14x ≡ 8 (mod 30).  
+3. Compute 3¹⁰⁰ mod 7.  
+4. Solve the system:  
+   x ≡ 2 (mod 3)  
+   x ≡ 3 (mod 5)  
+   x ≡ 2 (mod 7)  
+5. RSA mini example: p=11, q=13, e=7, m=20.
+
+### Extra Practice
+6. Solve x ≡ 5 (mod 7) and x ≡ 4 (mod 9).  
+7. Show that if p is prime and p | ab then p | a or p | b.  
+8. Solve x² ≡ 9 (mod 35).  
+
+---
+
+## K10. Review and Mixed Practice (Repetition)
+
+### Mixed Practice
+1. How many 6-digit codes have at least one repeated digit?  
+2. Show that ((p → q) ∧ (q → r)) → (p → r) is a tautology.  
+3. Prove by induction: `1² + 2² + ... + n² = n(n+1)(2n+1)/6`.  
+4. Decide if the degree sequence (3,3,2,2,2,2) is graphical.  
+5. Solve aₙ = aₙ₋₁ + 2aₙ₋₂, a₀=1, a₁=2.  
+6. Solve x² ≡ 1 (mod 15).  
+
+### Extra Practice
+7. How many binary strings of length 6 have exactly three 1’s?  
+8. Show that a² ≡ 0 or 1 (mod 4) for any integer a.  
+9. How many bijective functions exist between two 5-element sets?  
+
+---
