@@ -1,0 +1,17 @@
+# Logical Connectives Overview
+Symbol,Name,Meaning,Example
+"p, q, r...",Propositions,statements that can be true or false,p = 'It rains.'
+¬p,Negation,not p,¬p = 'It does not rain.'
+p ∧ q,Conjunction,p and q,'It rains and it’s cold.'
+p ∨ q,Disjunction,p or q (inclusive),'It rains or it’s cold (or both).'
+p → q,Implication,if p then q,"'If it rains, then I take the bus.'"
+p ↔ q,Equivalence (Biconditional),p if and only if q,'I take the bus if and only if it rains.'
+T,Tautology,always true,—
+F,Contradiction,always false,—
+
+# Combined Truth Table
+p,q,¬p,p ∧ q,p ∨ q,p → q,p ↔ q
+1,1,0,1,1,1,1
+1,0,0,0,1,0,0
+0,1,1,0,1,1,0
+0,0,1,0,0,1,1

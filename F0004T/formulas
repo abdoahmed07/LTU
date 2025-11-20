@@ -1,0 +1,36 @@
+# Kinematic Formulas for Uniform Acceleration
+
+ 1. Acceleration Formula
+
+ v = v0 + at
+
+ v = final velocity (m/s)
+ v0 = initial velocity (m/s)
+ a = acceleration (m/s^2)
+ t = time (s)
+
+ Since the object starts from rest, v0 = 0:
+ v = at
+
+ 2. Displacement Formula
+
+ x = x0 + v0*t + 0.5 * a * t^2
+
+ x = final position (displacement, meters)
+ x0 = initial position (meters)
+ v0 = initial velocity (m/s)
+ a = acceleration (m/s^2)
+ t = time (s)
+
+ Since the object starts from rest, v0 = 0:
+ x = 0.5 * a * t^2
+
+ 3. Alternative Formula for Velocity (without time)
+
+ v^2 = v0^2 + 2a * (x - x0)
+ 
+ v = final velocity (m/s)
+ v0 = initial velocity (m/s)
+ a = acceleration (m/s^2)
+ x = final displacement (meters)
+ x0 = initial displacement (meters)

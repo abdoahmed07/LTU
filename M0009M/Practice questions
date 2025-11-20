@@ -11,13 +11,22 @@ Simple English phrasing, same numbering as the Swedish version.
 ### Core Problems
 1. A menu has 3 starters, 4 main dishes, and 2 desserts.  
    a) How many different 3-course menus are possible?  
+      3*4*2 = 24
    b) If 1 starter and 1 main dish are fish and you avoid fish, how many menus remain?  
+      (3-1)*(4-1)*2 = 12
 
 2. Using letters A, B, C, D, E – how many 3-letter words can you form without repetition?  
+   P(5,3) = 5!/(5-3)! = 60
 
 3. Using alphabet {A, B, C} – how many 5-letter words contain at least one A?  
+   Total = 3^5 = 243  
+   Without A = 2^5 = 32  
+   With at least one A = 243 - 32 = 211
 
-4. How many distinct rearrangements of the word **BANANA**?  
+4. How many distinct rearrangements of the word **BANANA**? 
+   Total letters = 6  
+   Repetitions: A=3, N=2  
+   Distinct arrangements = 6!/(3!*2!) = 60 
 
 5. How many ways can you choose 5 people from 12? How many if order matters?  
 
@@ -40,10 +49,15 @@ Simple English phrasing, same numbering as the Swedish version.
 
 ### Core Problems
 1. Build a truth table for `(p → q) ↔ (¬p ∨ q)`.  
+
 2. Simplify `¬(p ∧ (q ∨ ¬r))`.  
+
 3. Translate and correctly negate: “Every student has a course they love.”  
+
 4. Prove the set identity `A ∩ (B ∪ C) = (A ∩ B) ∪ (A ∩ C)`.  
+
 5. How many subsets exist for a set with `n` elements?  
+
 6. In a class: 18 like math (M), 15 physics (F), 12 chemistry (C).  
    6 like both M and F, 5 both M and C, 4 both F and C, 2 like all three.  
    How many like at least one subject? (If the class has 25 students, how many like none?)  

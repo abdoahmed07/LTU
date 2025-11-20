@@ -1,0 +1,16 @@
+Case / Concept,When to use,Repetition?,Order?,Formula,Example
+Addition Principle,Choose between different options (“either/or”).,–,–,Add them,3 sodas or 5 juices → 3 + 5 = 8
+Multiplication Principle,Make independent choices in sequence (“and”).,–,–,Multiply them,3 drinks × 4 desserts → 12 meals
+Permutation (all n),Arrange all items where order matters.,No,Yes,(n!),Arrange 5 books → 5! = 120
+Permutation (k of n),Arrange part of a set (top k ranks).,No,Yes,"(P(n,k)=n!/(n-k)!)",Top 3 of 10 runners → 10×9×8
+Permutation with repetition,"Order matters, items can repeat.",Yes,Yes,(n^k),4-digit PIN → 10^4
+Combination,"Order doesn’t matter, no repeats.",No,No,(n choose k = n! / (k!(n−k)!)),Team of 5 from 10 people
+Combination with repetition,"Order doesn’t matter, repeats allowed.",Yes,No,(n+k−1 choose k),"6 flavors, 3 scoops → (8 choose 3 = 56)"
+Distribution A,Identical items → distinct boxes (empty ok).,Identical,–,(k+n−1 choose n−1),10 candies → 4 kids → 286
+Distribution B,Identical items → distinct boxes (none empty).,Identical,–,(k−1 choose n−1),10 candies → 4 kids ≥1 each → 84
+Distribution C,Identical items → distinct boxes (min aᵢ each).,Identical,–,(k−Σa_i+n−1 choose n−1),"(x₁≥2, x₃≥3, x₄≥1)"
+Distribution D,Identical items → distinct boxes (max bᵢ).,Identical,–,Inclusion–Exclusion,Cap limits → subtract overlaps
+Distribution E,Distinct items → distinct boxes (empty ok).,Distinct,Yes,(n^k),3 candies → 2 kids → 8
+Distribution F,Distinct items → distinct boxes (none empty).,Distinct,Yes,"(n!S(k,n)) or (Σ(−1)^j(n choose j)(n−j)^k)",5 candies → 3 kids ≥1 each → 150
+Inclusion–Exclusion Principle,Count “at least one” cases or avoid overlaps.,–,–,Add singles − doubles + triples …,"Numbers divisible by 2, 3, 5"
+Binomial Theorem,Expand ((a+b)^n) and use binomial coefficients.,–,–,((a+b)^n = Σ(n choose k)a^{n−k}b^k),(x+1)^4 = x^4 + 4x^3 + 6x^2 + 4x + 1

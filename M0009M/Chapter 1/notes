@@ -1,0 +1,129 @@
+# Chapter 1 — Combinator
+
+## Addition Principle
+If you’re choosing between different options — like it’s either this or that — you add the possibilities.  
+It’s not about doing both; it’s picking one path or the other.
+
+Formula: Add them  
+Example: 3 soda options or 5 juice options → 3 + 5 = 8
+
+---
+
+## Multiplication Principle
+If you’re making independent choices in sequence — one after another — you multiply.  
+Think of it as "this and that," like building a combo meal.
+
+Formula: Multiply them  
+Example: 3 drinks × 4 desserts → 3 × 4 = 12
+
+---
+
+## Permutation (all n)
+If you’re arranging all items and the order matters, that’s a permutation of all n.  
+It’s about ordering everything — no repeats.
+
+Formula: n!  
+Example: Arrange 5 books → 5! = 120
+
+---
+
+## Permutation (k of n)
+If you’re only arranging part of the set (top k spots) and order matters, it’s still a permutation — but only for those k positions.  
+You can’t reuse any item.
+
+Formula: P(n, k) = n! / (n−k)!  
+Example: Top 3 of 10 runners → 10 × 9 × 8 = 720
+
+---
+
+## Permutation with Repetition
+If order matters and you can repeat, it’s all about powering — every spot has the same number of options.
+
+Formula: n^k  
+Example: 4-digit PIN → 10^4 = 10,000
+
+---
+
+## Combination
+If order doesn’t matter and you can’t repeat, that’s a combination.  
+You only care about which ones, not in what order.
+
+Formula: C(n, k) = n! / (k!(n−k)!)  
+Example: Pick 5 people out of 10 → 10 choose 5 = 252
+
+---
+
+## Combination with Repetition
+If order doesn’t matter but you can repeat, like scooping ice cream flavors, use this formula.
+
+Formula: C(n+k−1, k)  
+Example: 6 flavors, 3 scoops → C(8, 3) = 56
+
+---
+
+## Distribution A — Identical items, distinct boxes (empty ok)
+Split identical items (like candies) into different boxes or people, and it’s okay for some boxes to be empty.
+
+Formula: C(k+n−1, n−1)  
+Example: 10 candies → 4 kids → C(13, 3) = 286
+
+---
+
+## Distribution B — Identical items, distinct boxes (none empty)
+Same idea, but this time everyone gets at least one.  
+No empty boxes allowed.
+
+Formula: C(k−1, n−1)  
+Example: 10 candies → 4 kids ≥ 1 each → C(9, 3) = 84
+
+---
+
+## Distribution C — Identical items, distinct boxes (min aᵢ each)
+Each person or box has a minimum requirement.  
+Subtract those minimums first, then distribute the rest freely.
+
+Formula: C(k−Σaᵢ + n−1, n−1)  
+Example: (x₁≥2, x₃≥3, x₄≥1)
+
+---
+
+## Distribution D — Identical items, distinct boxes (max bᵢ)
+If every box has a maximum limit, use Inclusion–Exclusion to remove cases that break the cap.
+
+Formula: Inclusion–Exclusion  
+Example: Candy limits → count all, then subtract the overlaps
+
+---
+
+## Distribution E — Distinct items, distinct boxes (empty ok)
+If items and boxes are distinct, and empty boxes are fine, every item has n choices.
+
+Formula: n^k  
+Example: 3 candies → 2 kids → 2^3 = 8
+
+---
+
+## Distribution F — Distinct items, distinct boxes (none empty)
+Every box must get at least one item.  
+Uses Stirling numbers of the second kind or Inclusion–Exclusion.
+
+Formula: n! S(k, n) or Σ(−1)^j C(n, j)(n−j)^k  
+Example: 5 candies → 3 kids (no empty boxes) → 150 ways
+
+---
+
+## Inclusion–Exclusion Principle
+Use this when counting cases that overlap (like multiples).  
+Add singles, subtract doubles, add triples, and so on.
+
+Formula: Add singles − doubles + triples − …  
+Example: Numbers divisible by 2, 3, or 5 → add singles, subtract overlaps
+
+---
+
+## Binomial Theorem
+When expanding (a+b)^n, each term uses a binomial coefficient.  
+It shows all ways a and b can appear across n positions.
+
+Formula: (a+b)^n = Σ C(n, k) a^(n−k) b^k  
+Example: (x+1)^4 = x⁴ + 4x³ + 6x² + 4x + 1

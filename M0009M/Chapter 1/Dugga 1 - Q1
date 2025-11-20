@@ -1,0 +1,57 @@
+Dugga 1 – Question 1
+
+----------------------------------------
+Question
+----------------------------------------
+Given six different containers and ten distinct elements A, B, C, ..., J.
+
+(a) In how many different ways can the letters be distributed among the containers?
+
+(b) How many ways are there if A, B, and C must be together and alone in one of the containers?
+
+
+----------------------------------------
+(a) Total number of ways
+----------------------------------------
+We have 10 distinct letters: A, B, C, ..., J.
+We have 6 distinct containers.
+
+Each letter can go into any of the 6 containers, independently of the others.
+
+Each letter has 6 choices.
+
+Total number of combinations:
+6 × 6 × 6 × ... × 6 (10 times) = 6^10
+
+Answer (a):
+6^10 = 60,466,176
+
+
+----------------------------------------
+(b) A, B, and C must be together and alone in one container
+----------------------------------------
+"A, B, and C together, with no others" means:
+one of the 6 containers holds exactly {A, B, C}, and no other letters.
+
+Step 1: Choose which container will hold {A, B, C}.
+There are 6 possible choices.
+
+Step 2: Distribute the remaining 7 letters (D–J).
+They cannot be placed in the container that already has A, B, and C,
+so each of the 7 letters has 5 choices (the remaining 5 containers).
+
+Number of ways to place D–J:
+5^7 = 78,125
+
+Total number of ways:
+6 * 5^7 = 6 * 78,125 = 468,750
+
+Answer (b):
+6 * 5^7 = 468,750
+
+
+----------------------------------------
+Summary
+----------------------------------------
+(a) 6^10 = 60,466,176  
+(b) 6 * 5^7 = 468,750

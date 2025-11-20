@@ -1,0 +1,5 @@
+Technique,What You Assume,What You Try to Show,When to Use It,Example Skeleton
+Direct Proof,Assume P,Show Q using straightforward steps,When conclusion follows naturally from assumption,Assume n even → n=2k → compute → n² even
+Contrapositive Proof,Assume ¬Q,"Show ¬P, proving P→Q",When direct proof is messy; reverse direction easier,Assume n odd → n=2k+1 → n² odd → so if n² even then n even
+Proof by Contradiction,Assume ¬P (statement is false),Reach a contradiction,When assuming the opposite leads to an impossibility,Assume smallest positive rational r exists → r/2 < r
+Counterexample,Assume statement claims ∀,Find one example where it fails,When disproving universal statements,Claim: n²+n odd ∀n; counterexample n=2 → 6
