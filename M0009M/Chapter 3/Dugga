@@ -1,0 +1,71 @@
+Task: Find all integer solutions to the Diophantine equation
+42x − 91y = 77
+
+
+Solution:
+
+1. Compute gcd and simplify the equation  
+   The greatest common divisor of 42 and 91 is  
+   gcd(42, 91) = 7.  
+   Divide the whole equation by 7:
+       42x − 91y = 77  
+       6x − 13y = 11.          (1)
+
+2. Find one particular integer solution of (1)  
+   We want integers x, y such that
+       6x − 13y = 11.
+
+   Work modulo 13:
+       6x ≡ 11 (mod 13).
+
+   The inverse of 6 modulo 13 is 11, because
+       6 · 11 = 66 ≡ 1 (mod 13).
+
+   Multiply both sides of 6x ≡ 11 (mod 13) by 11:
+       x ≡ 11 · 11 ≡ 121 ≡ 4 (mod 13).
+
+   So one solution is x = 4. Put x = 4 into (1):
+       6·4 − 13y = 11  
+       24 − 13y = 11  
+       13 = 13y  
+       y = 1.
+
+   Thus (x0, y0) = (4, 1) is a particular solution.
+
+3. Describe all integer solutions  
+   The homogeneous equation to (1) is
+       6x − 13y = 0.
+
+   A direction solution can be found by solving 6x = 13y.  
+   One simple choice is x = 13, y = 6. So every solution of  
+   the homogeneous equation has the form
+       (x, y) = (13t, 6t),  t ∈ ℤ.
+
+   Therefore, all integer solutions of (1) are
+       (x, y) = (4, 1) + (13t, 6t)  
+              = (4 + 13t, 1 + 6t),  t ∈ ℤ.
+
+   So all integer solutions of the original equation are
+       x = 4 + 13t,  
+       y = 1 + 6t,  
+       where t is any integer.
+
+4. Find the solution with the smallest x > 100  
+   We need
+       x = 4 + 13t > 100.
+
+   This inequality gives
+       13t > 96  
+       t > 96/13 ≈ 7.38.
+
+   The smallest integer t that satisfies this is t = 8.
+
+   For t = 8:
+       x = 4 + 13·8 = 4 + 104 = 108,  
+       y = 1 + 6·8 = 1 + 48 = 49.
+
+   Check in the original equation:
+       42·108 − 91·49 = 4536 − 4459 = 77
+
+   So the solution with the smallest x that is greater than 100 is
+       [108, 49].
