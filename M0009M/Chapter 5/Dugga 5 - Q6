@@ -1,0 +1,33 @@
+=============================================
+Dugga 5 - Question
+Stirling numbers of the second kind
+Distribution of 10 distinct elements into 4 identical containers
+=============================================
+
+Use the table that follows from the recursive formula for the Stirling numbers of the second kind to determine how many ways 10 distinct elements can be distributed into 4 identical containers if:
+(a) no container is allowed to be empty.
+(b) empty containers are allowed.
+
+---------------------------------------------
+PART (a) — No container allowed to be empty
+---------------------------------------------
+When distributing n distinct elements into k identical containers with no container empty, the number of ways is the Stirling number of the second kind S(n, k).
+Here n = 10 and k = 4.
+Therefore the answer is S(10, 4).
+Using the Stirling table (or the recursion S(n,k) = k*S(n-1,k) + S(n-1,k-1)):
+S(10, 4) = 34105
+Final answer for (a): 34105 ways.
+
+---------------------------------------------
+PART (b) — Empty containers allowed
+---------------------------------------------
+If the containers are identical and empty containers are allowed, then we may use 1, 2, 3, or 4 non-empty containers.
+This means we sum the Stirling numbers S(10, k) for k = 1 to 4.
+From the Stirling table:
+S(10, 1) = 1
+S(10, 2) = 511
+S(10, 3) = 9330
+S(10, 4) = 34105
+Sum:
+1 + 511 + 9330 + 34105 = 43947
+Final answer for (b): 43947 ways.

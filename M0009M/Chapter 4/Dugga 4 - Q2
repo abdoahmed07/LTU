@@ -1,0 +1,122 @@
+=====================================================
+Dugga 4 - Question 2
+Functions between sets (injective, surjective, bijective)
+====================================================
+
+(a) Let f : Z → N,  f(n) = n^2 + 3.
+    Is the function injective? Surjective? Bijective?
+
+(b) How many functions are there from A to B
+    if |A| = 6 and |B| = 3 ?
+
+(c) How many surjective functions are there from A to B
+    if |A| = 7 and |B| = 2 
+
+-----------------------------------------------------
+(a) f : Z → N, f(n) = n^2 + 3
+-----------------------------------------------------
+
+Step 1: What does injective mean?
+A function is injective if
+  f(x1) = f(x2)  ⇒  x1 = x2
+That means: no two different input values are allowed
+to give the same output value.
+
+Step 2: Test injectivity for f(n) = n^2 + 3.
+Try n = 2 and n = -2:
+
+  f(2)   = 2^2 + 3 = 4 + 3 = 7
+  f(-2)  = (-2)^2 + 3 = 4 + 3 = 7
+
+Here we have
+  f(2) = f(-2) = 7
+but
+  2 ≠ -2
+
+So two different integers give the same value.
+Therefore f is NOT injective.
+
+Step 3: What does surjective mean?
+A function is surjective if every element in the
+target set (here N) appears as some f(n).
+That is: for every y in N there exists an n in Z
+such that f(n) = y.
+
+Step 4: Test surjectivity for f(n) = n^2 + 3.
+We ask: can we get every natural number?
+
+Example: Can we get 5 as a value?
+  f(n) = 5  ⇒  n^2 + 3 = 5  ⇒  n^2 = 2
+There is no integer n with n^2 = 2.
+So 5 in N is not reached by f.
+
+Therefore f is NOT surjective.
+
+Step 5: What does bijective mean?
+A function is bijective if it is both injective and surjective.
+
+We have found:
+  - not injective
+  - not surjective
+so it cannot be bijective either.
+
+Final answer for (a) in the form [inj, surj, bij]:
+  [0, 0, 0]
+
+-----------------------------------------------------
+(b) Number of functions A → B with |A| = 6 and |B| = 3
+-----------------------------------------------------
+
+Idea: For each element of A we can freely choose an image
+in B. There are 3 choices for each element of A.
+
+Step 1: Number of choices for one element in A
+For each a in A, we can pick:
+  f(a) ∈ B = 3 possibilities.
+
+Step 2: There are 6 elements in A.
+For each of the 6 elements, we have 3 possible images.
+All choices are independent, so we multiply:
+
+  Number of functions = 3 * 3 * 3 * 3 * 3 * 3
+                       = 3^6
+
+Step 3: Compute 3^6.
+  3^6 = 729
+
+Final answer for (b):
+  There are 3^6 = 729 functions from A to B
+
+-----------------------------------------------------
+(c) Number of surjective functions A → B
+
+    with |A| = 7 and |B| = 2
+-----------------------------------------------------
+
+Let B = {b1, b2}. Step 1: Count all functions from A to B (not just surjective).
+
+
+For each of the 7 elements in A, we have 2 choices in B.
+So the total number of functions is
+
+  Total functions = 2^7
+                  = 128 Step 2: Remove the non-surjective functions.
+
+
+A function A → B is NOT surjective if it uses only one
+of the two values in B.
+
+Case 1: Every element maps to b1.
+Case 2: Every element maps to b2.
+
+These are the only two constant functions.
+So number of non surjective functions = 2.
+
+Step 3: Surjective functions = total − non surjective   
+
+  Surjective = 2^7 − 2
+             = 128 − 2
+             = 126
+
+There are 126 surjective functions from A to B.
+Final answer for (c):

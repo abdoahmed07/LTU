@@ -1,0 +1,34 @@
+Torsional oscillations occur in mechanical systems where a body is suspended by a wire or a shaft that twists elastically under load. When the twisting force that pulls the rod back to its starting position comes from the elastic properties of the wire, the motion can be treated as a torsional pendulum. Such systems are widely used in classical physics experiments and engineering applications to determine material properties or to verify simplified motion models. For small twist angles, the motion can be treated as simple harmonic, and the oscillation period depends on both the geometry of the system and the elastic constant G of the wire.
+
+In this experiment, a rigid rod is suspended horizontally by a thin piano wire and set into small angle oscillations in its horizontal plane. The theoretical model predicts that the period t of the oscillation is 
+
+\[
+t = C\,\frac{\sqrt{m_s l_t}\, l_s}{r_t^2 \sqrt{G}},
+\]
+
+where \(m_s\) is the mass of the rod, \(l_s\) its length, \(l_t\) the wire length, \(r_t\) the wire radius, and G the elastic constant of the wire material. This expression comes from balancing the twisting force in the wire with the rod's tendency to resist rotation, assuming small motions and no significant damping. 
+
+The purpose of this work is to examine how the oscillation period depends on the system's parameters and to evaluate how well the measurements agree with the theoretical model. By changing the relevant geometric quantities and comparing the measured periods with the predicted relationship, the accuracy and limits of the model can be evaluated. The study focuses on small oscillations, uniform rods, and fixed diameter piano wires, and we ignore air resistance, material imperfections, and damping effects in general.
+
+
+
+
+
+
+
+
+
+
+
+
+swedish version - Done by ChatGPT:
+
+Torsionssvängningar uppstår i mekaniska system där en kropp är upphängd i en tråd eller axel som vrids elastiskt under belastning. När den vridande kraft som återför stången till dess ursprungliga läge kommer från trådens elastiska egenskaper kan rörelsen behandlas som en torsionspendel. Sådana system används ofta i klassiska fysikexperiment och ingenjörstillämpningar för att bestämma materialegenskaper eller för att verifiera förenklade rörelsemodeller. För små vridningsvinklar kan rörelsen betraktas som harmonisk svängning, och svängningsperioden beror på både systemets geometri och trådens elasticitetsmodul G.
+
+I detta experiment är en stel stång upphängd horisontellt i en tunn pianotråd och sätts i små vinkelrörelser i sitt horisontalplan. Den teoretiska modellen förutsäger att svängningsperioden t ges av
+
+t = C\,\frac{\sqrt{m_s l_t}\, l_s}{r_t^2 \sqrt{G}},
+
+där m_s är stångens massa, l_s dess längd, l_t trådens längd, r_t trådens radie och G trådens elasticitetsmodul. Detta uttryck erhålls genom att balansera den vridande återställande kraften i tråden mot stångens tröghetsmotstånd, under antagandet om små rörelser och försumbar dämpning.
+
+Syftet med arbetet är att undersöka hur svängningsperioden beror på systemets parametrar och att utvärdera hur väl mätningarna överensstämmer med den teoretiska modellen. Genom att variera de relevanta geometriska storheterna och jämföra de uppmätta perioderna med den förutsagda relationen kan modellens noggrannhet och begränsningar bedömas. Studien fokuserar på små svängningar, homogena stänger och pianotrådar med fast diameter, och luftmotstånd, materialbrister samt dämpningseffekter försummas.
