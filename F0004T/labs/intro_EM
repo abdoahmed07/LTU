@@ -1,0 +1,21 @@
+Torsional oscillations occur in mechanical systems where a body is suspended by a wire or a shaft that twists elastically under load. When the twisting force that pulls the rod back to its starting position comes from the elastic properties of the wire, the motion can be treated as a torsional pendulum. Such systems are widely used in classical physics experiments and engineering applications to determine material properties or to verify simplified motion models. For small twist angles, the motion can be treated as simple harmonic, and the oscillation period depends on both the geometry of the system and the elastic constant G of the wire.
+
+In this experiment, a rigid rod is suspended horizontally by a thin piano wire and set into small angle oscillations in its horizontal plane. The theoretical model predicts that the period t of the oscillation is 
+
+\[
+t = C\,\frac{\sqrt{m_s l_t}\, l_s}{r_t^2 \sqrt{G}},
+\]
+
+where \(m_s\) is the mass of the rod, \(l_s\) its length, \(l_t\) the wire length, \(r_t\) the wire radius, and G the elastic constant of the wire material. This expression comes from balancing the twisting force in the wire with the rod's tendency to resist rotation, assuming small motions and no significant damping. 
+
+The purpose of this work is to examine how the oscillation period depends on the system's parameters and to evaluate how well the measurements agree with the theoretical model. By changing the relevant geometric quantities and comparing the measured periods with the predicted relationship, the accuracy and limits of the model can be evaluated. The study focuses on small oscillations, uniform rods, and fixed diameter piano wires, and we ignore air resistance, material imperfections, and damping effects in general.
+
+
+
+
+
+
+
+
+
+

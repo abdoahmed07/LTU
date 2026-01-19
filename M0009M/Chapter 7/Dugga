@@ -1,0 +1,50 @@
+Dugga 7 - Question 1
+
+Solve the recurrence:
+x(n+1) + 2*x(n) = 3^n
+x(0) = 0
+
+1) Homogeneous equation
+
+Set the right-hand side to zero:
+x(n+1) + 2*x(n) = 0
+
+Assume a solution of the form x(n) = r^n:
+r^(n+1) + 2*r^n = 0
+r + 2 = 0
+r = -2
+
+Homogeneous solution:
+x_h(n) = C*(-2)^n
+
+2) Particular solution
+
+Since the right-hand side is 3^n, try:
+x_p(n) = A*3^n
+
+Insert into the recurrence:
+A*3^(n+1) + 2*A*3^n
+= A*3^n*(3 + 2)
+= 5*A*3^n
+
+Match coefficients:
+5*A = 1
+A = 1/5
+
+Particular solution:
+x_p(n) = (1/5)*3^n
+
+3) General solution
+
+x(n) = C*(-2)^n + (1/5)*3^n
+
+Use the initial condition x(0) = 0:
+0 = C + 1/5
+C = -1/5
+
+4) Final answer
+
+x(n) = (1/5)*(3^n - (-2)^n)
+
+MATLAB input:
+(1/5)*(3^n - (-2)^n)

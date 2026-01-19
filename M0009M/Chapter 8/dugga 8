@@ -1,0 +1,29 @@
+Dugga 8 - Question 6
+
+Compute the remainder of:
+12 * 11^601 (mod 61)
+
+1) Fermat's Little Theorem
+
+61 is prime and gcd(11, 61) = 1, so:
+11^60 ≡ 1 (mod 61)
+
+2) Reduce the exponent
+
+601 = 60*10 + 1
+
+Thus:
+11^601 = (11^60)^10 * 11
+≡ 1^10 * 11
+≡ 11 (mod 61)
+
+3) Multiply and reduce
+
+12 * 11 = 132
+132 = 61*2 + 10
+
+So:
+12 * 11^601 ≡ 10 (mod 61)
+
+Final answer:
+10
