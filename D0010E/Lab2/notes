@@ -1,0 +1,244 @@
+/*
+=====================================================================
+MyArrayList<E> – TODO + What each method should do (combined comment)
+=====================================================================
+
+NOTE: Your class currently has no internal state, so nothing can work until you add fields.
+
+REQUIRED FIELDS (add near top of class)
+---------------------------------------
+private E[] array;     // internal storage where elements are kept
+private int size;      // number of stored elements (valid indexes are 0..size-1)
+(optional) private static final int DEFAULT_CAPACITY = 10;
+
+Generic array creation (Java rule):
+array = (E[]) new Object[capacity];
+
+------------------------------------------------------------
+CONSTRUCTORS
+------------------------------------------------------------
+
+MyArrayList(int initialCapacity)
+WHAT IT DOES:
+- Creates an empty list with an internal array of length initialCapacity.
+- size starts at 0 because the list is empty.
+TODO:
+- if initialCapacity < 0 -> throw IllegalArgumentException
+- array = (E[]) new Object[initialCapacity]
+- size = 0
+
+MyArrayList()
+WHAT IT DOES:
+- Creates an empty list with a default starting capacity.
+TODO:
+- call this(DEFAULT_CAPACITY)
+
+------------------------------------------------------------
+-- 1 -- BASIC INFO / RESET
+------------------------------------------------------------
+
+int size()
+WHAT IT DOES:
+- Returns how many elements are stored in the list right now.
+TODO:
+- return size
+
+boolean isEmpty()
+WHAT IT DOES:
+- Returns true if list contains 0 elements.
+TODO:
+- return size == 0
+
+void clear()
+WHAT IT DOES:
+- Makes the list empty again.
+- Does NOT need to shrink internal array.
+TODO:
+- set array[0..size-1] = null (good practice for garbage collection)
+- set size = 0
+
+------------------------------------------------------------
+-- 2 -- CAPACITY CONTROL
+------------------------------------------------------------
+
+void ensureCapacity(int minCapacity)
+WHAT IT DOES:
+- Makes sure the internal array is at least minCapacity long.
+- If too small, grows array and copies elements.
+TODO:
+- if minCapacity <= array.length: do nothing
+- else:
+    newCap = max(minCapacity, array.length * 2 + 1)  (any reasonable grow policy ok)
+    newArr = (E[]) new Object[newCap]
+    copy elements 0..size-1 into newArr
+    array = newArr
+
+void trimToSize()
+WHAT IT DOES:
+- Shrinks internal array so its length becomes exactly size.
+- Saves memory if you won’t add more soon.
+TODO:
+- if array.length > size:
+    newArr = (E[]) new Object[size]
+    copy 0..size-1
+    array = newArr
+
+------------------------------------------------------------
+-- 3 -- ADDING ELEMENTS
+------------------------------------------------------------
+
+void add(int index, E element)
+WHAT IT DOES:
+- Inserts element at position index.
+- Shifts existing elements right to make space.
+- size increases by 1.
+TODO:
+- index must be 0 <= index <= size else throw IndexOutOfBoundsException
+- ensureCapacity(size + 1)
+- shift right:
+    for i = size; i > index; i--:
+        array[i] = array[i-1]
+- array[index] = element
+- size++
+
+boolean add(E e)
+WHAT IT DOES:
+- Adds element to the end of the list.
+- Always returns true (like ArrayList).
+TODO:
+- call add(size, e)
+- return true
+
+------------------------------------------------------------
+-- 4 -- READING / REPLACING
+------------------------------------------------------------
+
+E get(int index)
+WHAT IT DOES:
+- Returns the element stored at index (does not change the list).
+TODO:
+- index must be 0 <= index < size else throw IndexOutOfBoundsException
+- return array[index]
+
+E set(int index, E element)
+WHAT IT DOES:
+- Replaces the element at index with element.
+- Returns the old value.
+- size does NOT change.
+TODO:
+- index must be 0 <= index < size else throw IndexOutOfBoundsException
+- old = array[index]
+- array[index] = element
+- return old
+
+------------------------------------------------------------
+-- 5 -- REMOVING
+------------------------------------------------------------
+
+E remove(int index)
+WHAT IT DOES:
+- Removes the element at index.
+- Shifts elements after it left to fill the gap.
+- size decreases by 1.
+- Returns the removed element.
+TODO:
+- index must be 0 <= index < size else throw IndexOutOfBoundsException
+- old = array[index]
+- shift left:
+    for i = index; i < size-1; i++:
+        array[i] = array[i+1]
+- array[size-1] = null
+- size--
+- return old
+
+protected void removeRange(int fromIndex, int toIndex)
+WHAT IT DOES:
+- Removes a block of elements: [fromIndex, toIndex)
+  (from inclusive, to exclusive).
+  Example: removeRange(2, 5) removes indexes 2,3,4.
+- Shifts remaining elements left to close the gap.
+- Updates size by subtracting (toIndex - fromIndex).
+TODO:
+- validate: 0 <= fromIndex <= toIndex <= size
+    if invalid -> throw IndexOutOfBoundsException
+    (or IllegalArgumentException if fromIndex > toIndex)
+- countRemoved = toIndex - fromIndex
+- move tail left:
+    for i = toIndex; i < size; i++:
+        array[i - countRemoved] = array[i]
+- null out freed end slots:
+    for i = size - countRemoved; i < size; i++:
+        array[i] = null
+- size -= countRemoved
+
+------------------------------------------------------------
+-- 6 -- SEARCH / CONTAINS / REMOVE BY VALUE
+------------------------------------------------------------
+
+int indexOf(Object o)
+WHAT IT DOES:
+- Finds the first index where the list contains o.
+- If o is null: match with array[i] == null.
+- If o not null: match with o.equals(array[i]).
+- Returns index if found, else -1.
+TODO:
+- search only i = 0..size-1
+- if o == null:
+    return first i where array[i] == null
+  else:
+    return first i where o.equals(array[i])
+- if not found return -1
+
+boolean remove(Object o)
+WHAT IT DOES:
+- Removes the first occurrence of o.
+- Returns true if something was removed, otherwise false.
+TODO:
+- idx = indexOf(o)
+- if idx == -1 return false
+- remove(idx)
+- return true
+
+boolean contains(Object o)
+WHAT IT DOES:
+- Returns true if list contains o, else false.
+TODO:
+- return indexOf(o) != -1
+
+------------------------------------------------------------
+-- 7 -- COPYING OUT
+------------------------------------------------------------
+
+Object clone()
+WHAT IT DOES:
+- Creates and returns a new MyArrayList with the same elements.
+- Shallow copy: references are copied, not the objects themselves.
+- The clone must have its own internal array.
+TODO:
+- create new MyArrayList<E> copy = new MyArrayList<>(size) (or array.length)
+- copy elements 0..size-1 into copy.array
+- set copy.size = this.size
+- return copy
+
+Object[] toArray()
+WHAT IT DOES:
+- Returns a new Object[] containing all list elements in order.
+- Length must be exactly size.
+TODO:
+- Object[] out = new Object[size]
+- copy 0..size-1 into out
+- return out
+
+------------------------------------------------------------
+HELPERS (recommended private methods)
+------------------------------------------------------------
+private void checkIndexForAccess(int index)
+- used by get/set/remove
+- valid: 0 <= index < size
+
+private void checkIndexForInsert(int index)
+- used by add(index,...)
+- valid: 0 <= index <= size
+
+END OF COMMENT
+*/
