@@ -1,0 +1,87 @@
+#include <Servo.h>
+
+Servo myServo;
+
+const int trigPin = 11;  // Trigger pin for ultrasonic sensor
+const int echoPin = 12;  // Echo pin for ultrasonic sensor
+
+long duration;
+int distance;
+
+int ledRed = 3;    // Red LED pin
+int ledGreen = 5;  // Green LED pin
+int ledBlue = 6;   // Blue LED pin
+
+int buzzerPin = 10; // Piezo buzzer pin (use a digital pin like 10)
+
+void setup() {
+    Serial.begin(9600);  // Start the Serial Monitor to output distance readings
+
+  // Set ultrasonic sensor pins
+    pinMode(trigPin, OUTPUT);
+    pinMode(echoPin, INPUT);
+
+  // Set LED pins
+    pinMode(ledRed, OUTPUT);
+    pinMode(ledGreen, OUTPUT);
+    pinMode(ledBlue, OUTPUT);
+
+  // Set buzzer pin
+    pinMode(buzzerPin, OUTPUT);
+
+  // Attach the servo to Pin 9
+    myServo.attach(9);
+}
+
+void loop() {
+  // Measuring the distance using ultrasonic sensor
+    digitalWrite(trigPin, LOW);
+    delayMicroseconds(2);
+    digitalWrite(trigPin, HIGH);
+    delayMicroseconds(10);
+    digitalWrite(trigPin, LOW);
+    duration = pulseIn(echoPin, HIGH);
+    distance = duration * 0.0344 / 2;  // Calculate the distance
+    // Output the distance to Serial Monitor
+    Serial.print("Distance: ");
+    Serial.println(distance);
+    // Control the RGB LED based on the distance
+    if (distance >= 40) {
+    // Turn LED Blue for distances 40 or more
+    analogWrite(ledRed, 0);
+    analogWrite(ledGreen, 0);
+    analogWrite(ledBlue, 255);
+    
+    // Move the servo to 180 degrees
+    myServo.write(180);
+    
+    // Stop buzzer (no sound for long distances)
+    noTone(buzzerPin);
+    } 
+    else if (distance >= 10 && distance < 40) {
+    // Turn LED Green for distances between 10 and 40
+    analogWrite(ledRed, 0);
+    analogWrite(ledGreen, 255);
+    analogWrite(ledBlue, 0);
+    
+    // Move the servo to 90 degrees
+    myServo.write(90);
+    
+    // Play medium tone for distances between 10 cm and 40 cm
+    tone(buzzerPin, 500);   // Medium tone (500Hz)
+    } 
+    else if (distance < 10) {
+    // Turn LED Red for distances less than 10
+    analogWrite(ledRed, 255);
+    analogWrite(ledGreen, 0);
+    analogWrite(ledBlue, 0);
+    
+    // Move the servo to 0 degrees
+    myServo.write(0);
+    
+    // Play high tone for distances less than 10 cm
+    tone(buzzerPin, 1000);  // High tone (1000Hz)
+    }
+
+  delay(500);  // Short delay before the next measurement
+}

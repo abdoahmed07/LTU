@@ -1,0 +1,131 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[swedish]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath, amsthm, amssymb}
+\usepackage[a4paper,includeheadfoot,margin=2.54cm]{geometry}
+\usepackage[left]{lineno}
+\usepackage{enumerate}
+
+
+\newcommand*\patchAmsMathEnvironmentForLineno[1]{
+\expandafter\let\csname old#1\expandafter\endcsname\csname #1\endcsname
+\expandafter\let\csname oldend#1\expandafter\endcsname\csname end#1\endcsname
+\renewenvironment{#1}{\linenomath\csname old#1\endcsname}
+{\csname oldend#1\endcsname\endlinenomath}
+}
+\newcommand*\patchBothAmsMathEnvironmentsForLineno[1]{
+\patchAmsMathEnvironmentForLineno{#1}
+\patchAmsMathEnvironmentForLineno{#1*}
+}
+\AtBeginDocument{
+\patchBothAmsMathEnvironmentsForLineno{equation}
+\patchBothAmsMathEnvironmentsForLineno{align}
+\patchBothAmsMathEnvironmentsForLineno{flalign}
+\patchBothAmsMathEnvironmentsForLineno{alignat}
+\patchBothAmsMathEnvironmentsForLineno{gather}
+\patchBothAmsMathEnvironmentsForLineno{multline}
+}
+
+
+\renewcommand\linenumberfont{\normalfont\bfseries\small}
+
+\title{Algoritmdesign}
+\author{
+    Abdalla Nasreldin\thanks{email: \texttt{abdnas-5@student.ltu.se}} \\
+    Mohammed Abuharaz\thanks{email: \texttt{mohabu-5@student.ltu.se}} \\
+    Luleå tekniska universitet \\
+    971 87 Luleå, Sverige
+}
+\date{\today}
+
+\begin{document}
+\linenumbers
+\maketitle
+
+\begin{abstract}
+    Den här rapporten handlar om tre sätt att hitta den största summan från en
+    sammanhängande del av en lista med tal. Vi förklarar hur varje metod 
+    fungerar, varför den är rätt och jämför hur effektiva de är.
+\end{abstract}
+
+\section{Introduktion}
+
+    Uppgiften går ut på att hitta den största möjliga summan från en 
+    sammanhängande delsekvens i en lista med tal, vilket kallas maximum 
+    subsekvenssumma. I den här rapporten beskriver vi tre olika sätt att lösa 
+    problemet som beskrivs i artikeln av Bentley från 1984. Vi förklarar 
+    metoderna och visar hur de fungerar.
+
+\section{Naiva algoritmen (kubisk metod), \texorpdfstring{$O(n^3)$}{O(n^3)}}
+
+\subsection*{Idén}
+    Den här metoden går igenom alla möjliga delsekvenser i listan genom att 
+    använda tre loopar. För varje delsekvens beräknas summan. Det här är en 
+    enkel metod, men den blir långsam när listan blir större.
+
+
+\subsection*{Varför $O(n^3)$?}
+    Den här metoden har tre loopar som var och en går igenom alla tal i listan. 
+    Detta gör att algoritmen blir mycket långsam när listan är lång. Vi kan säga
+    att den har en tidskomplexitet på $O(n^3)$, vilket betyder att den växer 
+    snabbt när listans storlek ökar.
+
+\section{Första kvadratiska algoritmen, \texorpdfstring{$O(n^2)$}{O(n^2)}}
+
+\subsection*{Idén}
+    Den första kvadratiska algoritmen gör samma sak som den kubiska, men 
+    istället för att räkna summan från början varje gång, återanvänder den 
+    summor från tidigare iterationer. Det gör att det går snabbare.
+
+\subsection*{Varför korrekt?}
+    Genom att återanvända summorna sparar vi tid. Vi får samma resultat som med 
+    den kubiska algoritmen, men på ett mycket snabbare sätt.
+
+\subsection*{Varför $O(n^2)$?}
+    Den här algoritmen använder två loopar, så den är snabbare än den kubiska. 
+    Därför får vi en tidskomplexitet på $O(n^2)$, vilket betyder att den växer 
+    långsammare än den kubiska metoden.
+
+\begin{align}
+    \text{steg}(n) &= n \cdot n = O(n^2). \label{eq:quad1}
+\end{align}
+
+\section{Andra kvadratiska algoritmen (prefixsumma), 
+\texorpdfstring{$O(n^2)$}{O(n^2)}}
+
+\subsection*{Idén: Prefixsumma}
+    I den här metoden bygger vi en array där varje element är summan av alla 
+    föregående element. Det gör att vi kan beräkna summan för varje delsekvens 
+    på ett mycket snabbare sätt.
+
+\subsection*{Varför korrekt?}
+    Genom att använda prefixsum-arrayer kan vi effektivt beräkna summan av varje
+    delsekvens på ett mycket snabbare sätt än i de tidigare metoderna.
+
+\subsection*{Kostnad}
+    För att bygga prefixsum-arrayen behövs $O(n)$ tid, och varje delsumma kan 
+    beräknas på $O(1)$ tid. Därför får vi totalt $O(n^2)$.
+
+\begin{align}
+    \text{steg}(n) &= O(n) + O(n^2) \cdot O(1) = O(n^2). \label{eq:quad2}
+\end{align}
+
+\section{Diskussion och sammanfattning}
+\textbf{Jämförelse.} De kvadratiska metoderna är mycket snabbare än den kubiska 
+    metoden, men alla metoder ger samma resultat. Den första kvadratiska metoden
+    är snabbare än den kubiska, och den andra kvadratiska metoden är ännu 
+    snabbare tack vare användningen av prefixsum-arrayer.
+
+\textbf{Big-O i vardagsord.} Om listans längd $n$ ökar med 10, så ökar antalet 
+    beräkningssteg med 1000 gånger för den kubiska metoden och bara 100 gånger
+    för de kvadratiska metoderna. Därför är de kvadratiska metoderna mycket
+    snabbare när listan blir större.
+
+\begin{thebibliography}{99}
+\bibitem{bentley}
+    Jon Bentley.
+    \textit{Programming Pearls: Algorithm Design Techniques}.
+    Communications of the ACM, 27(9):865--873, 1984.
+\end{thebibliography}
+
+\end{document}
