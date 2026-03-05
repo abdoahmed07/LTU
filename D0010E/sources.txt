@@ -1,0 +1,12 @@
+labb3/Huvudprogram.java
+labb3/verktyg/GrafikDemo.java
+labb3/verktyg/Grafik.java
+labb3/verktyg/Punkt.java
+labb3/GlobalaKonstanter.java
+labb3/kontroll/Tangentbordslyssnare.java
+labb3/vy/Målarduk.java
+labb3/GUI.java
+labb3/modell/Nivå.java
+labb3/modell/Gång.java
+labb3/modell/Väderstreck.java
+labb3/modell/Rum.java

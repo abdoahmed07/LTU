@@ -58,7 +58,7 @@ public class MyArrayList<E> implements Serializable, Cloneable, Iterable<E>,
 	}
 
 	// -- 1 --
-
+ 
 	/**
 	 * @return the number of elements in this list
 	 */
@@ -176,14 +176,12 @@ public class MyArrayList<E> implements Serializable, Cloneable, Iterable<E>,
 	 */
 	@Override
 	public E remove(int index) {
-		if (index < 0 || index >= size) 
-			throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + size);
-		E removedElement = array[index];
-		for (int i = index; i < size - 1; i++) 
-			array[i] = array[i + 1];
-		array[size - 1] = null;
-		size--;
-		return removedElement;
+	    if (index < 0 || index >= size)
+	        throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + size);
+	
+	    E removed = array[index];
+	    removeRange(index, index + 1);
+	    return removed;
 	}
 
 	/**

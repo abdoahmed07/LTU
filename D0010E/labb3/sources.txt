@@ -1,0 +1,12 @@
+./Huvudprogram.java
+./verktyg/GrafikDemo.java
+./verktyg/Grafik.java
+./verktyg/Punkt.java
+./GlobalaKonstanter.java
+./kontroll/Tangentbordslyssnare.java
+./vy/Målarduk.java
+./GUI.java
+./modell/Nivå.java
+./modell/Gång.java
+./modell/Väderstreck.java
+./modell/Rum.java
