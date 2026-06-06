@@ -33,10 +33,6 @@ To view a Netplan of your Code you can use [DigitalJS](https://digitaljs.tilk.eu
 it might look something like this:
 ![image of bcdcheck loaded in DigitalJS](images/digitaljs.png)
 
-## Notes for online lab submission
-
-It is important that you make sure that all the questions in the lab specification have been answered in your README (this file). You don't have to use the same structure as we've created, but if you change it make it clear. **Make sure that you have pushed all the code you have written to the repo. Just because there is not a question about a part does not mean it is not needed to pass the lab.** If you want you can push the entire directory
-
 ## Preparation (to be completed BEFORE the practical lab session)
 
 Complement the truth table from lab 1 with the function `hieq3: 1 if (x>=3) and (x<=9), 0 otherwise`.  Add the value of `hieq3` in the table below.

@@ -1,12 +1,6 @@
 # D0011E Lab 3a (4-bit ALU) Veryl Edition
 
-The goal of this lab is to implement a 4-bit arithmetic unit and a 4-bit logic unit. The labs should be completed individually, **however cooperation is encouraged.**  
-
-All the Veryl code together with this README should be uploaded to GitLab. The uploaded README file should include the filled out tables and the answers to the questions.
-
-## Preparation
-
-Fork this repository and clone your fork as you did for labs 1 and 2.
+The goal of this lab is to implement a 4-bit arithmetic unit and a 4-bit logic unit.
 
 ## Part 1
 
@@ -26,12 +20,10 @@ Based on your understanding of how the ARITH component functions, complete the b
 | 0000 | 1000 |  - | 1000 |  0  |  8  |  8  | No   |  0  | -8  | -8  | No   | 1 | 0 |
 
 
-Verify your design (=check the outputs R, V, C) by performing manual computations.  
 **Question 1:** Are the answers _mathematically_ correct? Can the overflow flag be used to detect errors in _unsigned addition/subtraction_? If not, can the carry flag be used to detect errors?
 
 Rows 1, 2 and 3 are correct for unsigned. Row 4 (0 - 8 = -8) can't be represented in 4-bit unsigned so U Ok = No. The overflow flag V can't detect unsigned errors, but the carry flag C can. C=1 means the addition result is too large, and C=0 in subtraction means a borrow happened.
 
-Verify your design (=check the outputs R, V, C) by performing manual computations.  
 **Question 2:** Are the answers _mathematically_ correct? Can the overflow flag be used to detect errors in _signed addition/subtraction_? If not, can the carry flag be used to detect errors?
 
 Rows 1 and 3 are correct for signed. Row 2 (7 + 2 = 9) and row 4 (0 - (-8) = 8) are both outside the signed range -8 to +7, so S Ok = No. The overflow flag V can detect signed errors, V=1 means the result is out of range. The carry flag C can't be used for signed overflow.
@@ -39,14 +31,6 @@ Rows 1 and 3 are correct for signed. Row 2 (7 + 2 = 9) and row 4 (0 - (-8) = 8) 
 ## Part 2
 
 Based on the correct designs chosen in quiz 1, write Veryl code for a 4-bit logic unit. You can find a stub for it in `logic.veryl`.
-
-## Part 3 Upload your source code and the README file
-
-The repository should include:
-
-- Implementation of the 4-bit arithmetic unit and code.
-- Implementation of the 4-bit logic unit and code.
-- Updated tables and answers to all the questions.
 
 ## Testing
 
