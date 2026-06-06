@@ -1,0 +1,25 @@
+module Adder32 (
+    A   : input  logic<32>,
+    B   : input  logic<32>,
+    c_in: input  logic    ,
+    R   : output logic<32>,
+    V   : output logic    ,
+    C   : output logic    ,
+) {
+    var carry: logic[33];
+
+    assign carry[0] = c_in;
+
+    for i in 0..32 :adders {
+        inst fa: FullAdder (
+            a    : A[i],
+            b    : B[i],
+            c_in : carry[i],
+            r    : R[i],
+            c_out: carry[i + 1],
+        );
+    }
+
+    assign C = carry[32];
+    assign V = carry[31] ^ carry[32];
+}

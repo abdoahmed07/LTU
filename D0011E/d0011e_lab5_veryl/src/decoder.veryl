@@ -1,0 +1,150 @@
+module Decoder1 (
+    opcode         : input  logic<6>,
+    funct          : input  logic<6>,
+    z              : input  logic   ,
+    reg_destination: output logic   ,
+    write_enable   : output logic   ,
+    sign_extend    : output logic   ,
+    alu_source     : output logic   ,
+    alu_sub        : output logic   ,
+    alu_op         : output logic<2>,
+    mem_write      : output logic   ,
+    mem_to_reg     : output logic   ,
+    branch         : output logic   ,
+    jump           : output logic   ,
+) {
+    always_comb {
+        reg_destination = 1'b0;
+        write_enable    = 1'b0;
+        sign_extend     = 1'b1;
+        alu_source      = 1'b0;
+        alu_sub         = 1'b0;
+        alu_op          = 2'b10;
+        mem_write       = 1'b0;
+        mem_to_reg      = 1'b0;
+        branch          = 1'b0;
+        jump            = 1'b0;
+
+        if opcode == 6'b000000 {
+            reg_destination = 1'b1;
+            write_enable    = 1'b1;
+            if funct == 6'd32 {
+                alu_sub = 1'b0; alu_op = 2'b10;
+            } else if funct == 6'd34 {
+                alu_sub = 1'b1; alu_op = 2'b10;
+            } else if funct == 6'd36 {
+                alu_sub = 1'b0; alu_op = 2'b00;
+            } else if funct == 6'd37 {
+                alu_sub = 1'b0; alu_op = 2'b01;
+            } else if funct == 6'd42 {
+                alu_sub = 1'b1; alu_op = 2'b11;
+            } else {
+                write_enable = 1'b0;
+            }
+        } else if opcode == 6'd8 {
+            write_enable = 1'b1;
+            alu_source   = 1'b1;
+        } else if opcode == 6'd10 {
+            write_enable = 1'b1;
+            alu_source   = 1'b1;
+            alu_sub      = 1'b1;
+            alu_op       = 2'b11;
+        } else if opcode == 6'd35 {
+            write_enable = 1'b1;
+            alu_source   = 1'b1;
+            mem_to_reg   = 1'b1;
+        } else if opcode == 6'd43 {
+            alu_source = 1'b1;
+            mem_write  = 1'b1;
+        } else if opcode == 6'd4 {
+            alu_sub = 1'b1;
+            branch  = 1'b1;
+        } else if opcode == 6'd2 {
+            jump = 1'b1;
+        }
+    }
+}
+
+#[test(decoder_test)]
+module DecoderTest {
+    inst clk: $tb::clock_gen #( period: 10 );
+
+    var opcode         : logic<6>;
+    var funct          : logic<6>;
+    var z              : logic   ;
+    var reg_destination: logic   ;
+    var write_enable   : logic   ;
+    var sign_extend    : logic   ;
+    var alu_source     : logic   ;
+    var alu_sub        : logic   ;
+    var alu_op         : logic<2>;
+    var mem_write      : logic   ;
+    var mem_to_reg     : logic   ;
+    var branch         : logic   ;
+    var jump           : logic   ;
+
+    inst dut: Decoder1 (
+        opcode         ,
+        funct          ,
+        z              ,
+        reg_destination,
+        write_enable   ,
+        sign_extend    ,
+        alu_source     ,
+        alu_sub        ,
+        alu_op         ,
+        mem_write      ,
+        mem_to_reg     ,
+        branch         ,
+        jump           ,
+    );
+
+    initial {
+        z = 0;
+
+        opcode = 0; funct = 32; clk.next();
+        $assert(reg_destination == 1 && write_enable == 1 && alu_source == 0 && alu_sub == 0 && alu_op == 2'b10);
+        $assert(mem_write == 0 && mem_to_reg == 0 && branch == 0 && jump == 0);
+
+        opcode = 0; funct = 34; clk.next();
+        $assert(reg_destination == 1 && write_enable == 1 && alu_source == 0 && alu_sub == 1 && alu_op == 2'b10);
+        $assert(mem_write == 0 && mem_to_reg == 0 && branch == 0 && jump == 0);
+
+        opcode = 0; funct = 42; clk.next();
+        $assert(reg_destination == 1 && write_enable == 1 && alu_source == 0 && alu_sub == 1 && alu_op == 2'b11);
+        $assert(mem_write == 0 && mem_to_reg == 0 && branch == 0 && jump == 0);
+
+        opcode = 0; funct = 36; clk.next();
+        $assert(reg_destination == 1 && write_enable == 1 && alu_source == 0 && alu_sub == 0 && alu_op == 2'b00);
+        $assert(mem_write == 0 && mem_to_reg == 0 && branch == 0 && jump == 0);
+
+        opcode = 0; funct = 37; clk.next();
+        $assert(reg_destination == 1 && write_enable == 1 && alu_source == 0 && alu_sub == 0 && alu_op == 2'b01);
+        $assert(mem_write == 0 && mem_to_reg == 0 && branch == 0 && jump == 0);
+
+        opcode = 8; clk.next();
+        $assert(reg_destination == 0 && write_enable == 1 && alu_source == 1 && alu_sub == 0 && alu_op == 2'b10);
+        $assert(mem_write == 0 && mem_to_reg == 0 && branch == 0 && jump == 0);
+
+        opcode = 10; clk.next();
+        $assert(reg_destination == 0 && write_enable == 1 && alu_source == 1 && alu_sub == 1 && alu_op == 2'b11);
+        $assert(mem_write == 0 && mem_to_reg == 0 && branch == 0 && jump == 0);
+
+        opcode = 35; clk.next();
+        $assert(reg_destination == 0 && write_enable == 1 && alu_source == 1 && alu_sub == 0 && alu_op == 2'b10);
+        $assert(mem_write == 0 && mem_to_reg == 1 && branch == 0 && jump == 0);
+
+        opcode = 43; clk.next();
+        $assert(write_enable == 0 && alu_source == 1 && alu_sub == 0 && alu_op == 2'b10);
+        $assert(mem_write == 1 && mem_to_reg == 0 && branch == 0 && jump == 0);
+
+        opcode = 4; clk.next();
+        $assert(write_enable == 0 && alu_source == 0 && alu_sub == 1 && alu_op == 2'b10);
+        $assert(mem_write == 0 && mem_to_reg == 0 && branch == 1 && jump == 0);
+
+        opcode = 2; clk.next();
+        $assert(write_enable == 0 && mem_write == 0 && branch == 0 && jump == 1);
+
+        $finish();
+    }
+}

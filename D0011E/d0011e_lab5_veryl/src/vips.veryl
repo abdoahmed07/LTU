@@ -1,0 +1,352 @@
+module Vips (
+    i_clk         : input  clock              ,
+    i_reset       : input  reset_async_high   ,
+    i_dbg_reg     : input  logic<5>           ,
+    i_dbg_dm_addr : input  logic<32>          ,
+    o_dbg_reg_data: output logic<32>          ,
+    o_dbg_dm_data : output logic<32>          ,
+) {
+    var pc      : logic<32>;
+    var pc_plus4: logic<32>;
+    var next_pc : logic<32>;
+
+    inst pc_adder: Arith32 (
+        A  : pc,
+        B  : 32'd4,
+        Sub: 1'b0,
+        R  : pc_plus4,
+        V  : _,
+        C  : _,
+    );
+
+    var instr: logic<32>;
+
+    inst imem: InstrMem1 (
+        i_addr : pc   ,
+        o_instr: instr,
+    );
+
+    var opcode: logic<6> ;
+    var rs    : logic<5> ;
+    var rt    : logic<5> ;
+    var rd    : logic<5> ;
+    var imm   : logic<16>;
+    var funct : logic<6> ;
+
+    always_comb {
+        opcode = instr[31:26];
+        rs     = instr[25:21];
+        rt     = instr[20:16];
+        rd     = instr[15:11];
+        imm    = instr[15:0];
+        funct  = instr[5:0];
+    }
+
+    var reg_destination: logic   ;
+    var write_enable   : logic   ;
+    var sign_extend    : logic   ;
+    var alu_source     : logic   ;
+    var alu_sub        : logic   ;
+    var alu_op         : logic<2>;
+    var mem_write      : logic   ;
+    var mem_to_reg     : logic   ;
+    var branch         : logic   ;
+    var jump           : logic   ;
+    var zero           : logic   ;
+
+    inst ctrl: Decoder1 (
+        opcode         ,
+        funct          ,
+        z              : zero          ,
+        reg_destination,
+        write_enable   ,
+        sign_extend    ,
+        alu_source     ,
+        alu_sub        ,
+        alu_op         ,
+        mem_write      ,
+        mem_to_reg     ,
+        branch         ,
+        jump           ,
+    );
+
+    var w_addr: logic<5>;
+
+    always_comb {
+        w_addr = if reg_destination ? rd : rt;
+    }
+
+    var reg_a_data: logic<32>;
+    var reg_b_data: logic<32>;
+    var alu_result: logic<32>;
+    var dm_out    : logic<32>;
+    var reg_w_data: logic<32>;
+
+    always_comb {
+        reg_w_data = if mem_to_reg ? dm_out : alu_result;
+    }
+
+    inst rf: RegFile (
+        i_clk     : i_clk         ,
+        i_reset   : i_reset       ,
+        i_a_addr  : rs            ,
+        i_b_addr  : rt            ,
+        i_w_ena   : write_enable  ,
+        i_w_addr  : w_addr        ,
+        i_w_data  : reg_w_data    ,
+        i_dbg_addr: i_dbg_reg     ,
+        o_a_data  : reg_a_data    ,
+        o_b_data  : reg_b_data    ,
+        o_dbg_data: o_dbg_reg_data,
+    );
+
+    var ext_imm: logic<32>;
+
+    inst extunit: Extend16to32 (
+        i_data    : imm        ,
+        i_sign_ext: sign_extend,
+        o_data    : ext_imm   ,
+    );
+
+    var alu_b: logic<32>;
+
+    always_comb {
+        alu_b = if alu_source ? ext_imm : reg_b_data;
+    }
+
+    inst alu: Alu32 (
+        A  : reg_a_data,
+        B  : alu_b     ,
+        Sub: alu_sub   ,
+        Op : alu_op    ,
+        R  : alu_result,
+        V  : _         ,
+        C  : _         ,
+        Z  : zero      ,
+    );
+
+    inst dm: DataMem (
+        i_clk     : i_clk        ,
+        i_reset   : i_reset      ,
+        i_we      : mem_write    ,
+        i_addr    : alu_result   ,
+        i_data    : reg_b_data   ,
+        i_dbg_addr: i_dbg_dm_addr,
+        o_data    : dm_out       ,
+        o_dbg_data: o_dbg_dm_data,
+    );
+
+    var branch_target: logic<32>;
+
+    inst branch_adder: Arith32 (
+        A  : pc_plus4,
+        B  : {ext_imm[29:0], 2'b00},
+        Sub: 1'b0,
+        R  : branch_target,
+        V  : _,
+        C  : _,
+    );
+    
+    always_comb {
+        if jump {
+            next_pc = {pc_plus4[31:28], instr[25:0], 2'b00};
+        } else if branch && zero {
+            next_pc = branch_target;
+        } else {
+            next_pc = pc_plus4;
+        }
+    }
+
+    always_ff {
+        if_reset {
+            pc = 32'd0;
+        } else {
+            pc = next_pc;
+        }
+    }
+}
+
+#[test(test_vips)]
+module VipsTest {
+    inst clk: $tb::clock_gen #( period: 10 );
+    inst rst: $tb::reset_gen #( cycles: 1 )(clk);
+
+    var dbg_reg    : logic<5> ;
+    var dbg_dm_addr: logic<32>;
+    var dbg_reg_dat: logic<32>;
+    var dbg_dm_dat : logic<32>;
+
+    inst dut: Vips (
+        i_clk         : clk        ,
+        i_reset       : rst        ,
+        i_dbg_reg     : dbg_reg    ,
+        i_dbg_dm_addr : dbg_dm_addr,
+        o_dbg_reg_data: dbg_reg_dat,
+        o_dbg_dm_data : dbg_dm_dat ,
+    );
+
+    var dec_opcode : logic<6>;
+    var dec_funct  : logic<6>;
+    var dec_z      : logic   ;
+    var dec_reg_dst: logic   ;
+    var dec_we     : logic   ;
+    var dec_sex    : logic   ;
+    var dec_asrc   : logic   ;
+    var dec_sub    : logic   ;
+    var dec_aop    : logic<2>;
+    var dec_mw     : logic   ;
+    var dec_m2r    : logic   ;
+    var dec_br     : logic   ;
+    var dec_jmp    : logic   ;
+
+    inst ctrl_ut: Decoder1 (
+        opcode         : dec_opcode ,
+        funct          : dec_funct  ,
+        z              : dec_z      ,
+        reg_destination: dec_reg_dst,
+        write_enable   : dec_we     ,
+        sign_extend    : dec_sex    ,
+        alu_source     : dec_asrc   ,
+        alu_sub        : dec_sub    ,
+        alu_op         : dec_aop    ,
+        mem_write      : dec_mw     ,
+        mem_to_reg     : dec_m2r    ,
+        branch         : dec_br     ,
+        jump           : dec_jmp    ,
+    );
+
+    initial {
+        dbg_reg     = 0;
+        dbg_dm_addr = 0;
+        dec_opcode  = 0;
+        dec_funct   = 0;
+        dec_z       = 0;
+
+        rst.assert();
+
+        clk.next(); clk.next();
+
+        dbg_reg = 1; clk.next();
+        $assert(dbg_reg_dat == 8);
+
+        dbg_reg = 2; clk.next();
+        $assert(dbg_reg_dat == 8);
+
+        clk.next();
+        $assert(dbg_reg_dat == 2);
+
+        dbg_reg = 3; clk.next();
+        $assert(dbg_reg_dat == 32'hFFFFFFFA);
+
+        dbg_reg = 4; clk.next();
+        $assert(dbg_reg_dat == 0);
+
+        clk.next();
+        $assert(dbg_reg_dat == 1);
+
+        dbg_reg = 5; clk.next();
+        $assert(dbg_reg_dat == 1);
+
+        dbg_reg = 6; clk.next();
+        $assert(dbg_reg_dat == 32'hFFFFFFFA);
+
+        dbg_reg = 7; clk.next();
+        $assert(dbg_reg_dat == 8);
+
+        dbg_reg = 8; clk.next();
+        $assert(dbg_reg_dat == 0);
+
+        dbg_dm_addr = 32'd8;
+        clk.next();
+        $assert(dbg_dm_dat == 2);
+
+        clk.next();
+        $assert(dbg_reg_dat == 2);
+
+        dbg_dm_addr = 32'd4;
+        clk.next();
+        $assert(dbg_dm_dat == 32'hFFFFFFFA);
+
+        dbg_reg = 9; clk.next();
+        $assert(dbg_reg_dat == 32'hFFFFFFFA);
+
+        dbg_reg = 2;
+        clk.next();
+        $assert(dbg_reg_dat == 1);
+        clk.next();
+        clk.next();
+        clk.next();
+        $assert(dbg_reg_dat == 0);
+
+        clk.next(); clk.next(); clk.next();
+        clk.next(); clk.next();
+        clk.next(); clk.next(); clk.next();
+        clk.next(); clk.next();
+        clk.next(); clk.next(); clk.next();
+        clk.next(); clk.next();
+        clk.next();
+        clk.next(); clk.next(); clk.next(); clk.next();
+
+        dbg_dm_addr = 32'd124;
+        $assert(dbg_dm_dat == 2);
+        dbg_dm_addr = 32'd120;
+        $assert(dbg_dm_dat == 2);
+
+        clk.next(); clk.next(); clk.next();
+        clk.next(); clk.next();
+        clk.next(); clk.next(); clk.next();
+        clk.next(); clk.next();
+        clk.next();
+        clk.next(); clk.next(); clk.next(); clk.next();
+
+        dbg_dm_addr = 32'd112;
+        $assert(dbg_dm_dat == 1);
+        dbg_dm_addr = 32'd108;
+        $assert(dbg_dm_dat == 0);
+
+        clk.next(); clk.next(); clk.next();
+        clk.next(); clk.next();
+        clk.next();
+        clk.next(); clk.next(); clk.next(); clk.next();
+
+        dbg_dm_addr = 32'd104;
+        $assert(dbg_dm_dat == 0);
+        dbg_dm_addr = 32'd100;
+        $assert(dbg_dm_dat == 5);
+
+        dec_opcode = 0; dec_funct = 32; clk.next();
+        $assert(dec_reg_dst == 1 && dec_we == 1 && dec_asrc == 0 && dec_sub == 0 && dec_aop == 2'b10 && dec_mw == 0 && dec_m2r == 0 && dec_br == 0 && dec_jmp == 0);
+
+        dec_opcode = 0; dec_funct = 34; clk.next();
+        $assert(dec_reg_dst == 1 && dec_we == 1 && dec_asrc == 0 && dec_sub == 1 && dec_aop == 2'b10 && dec_mw == 0 && dec_m2r == 0 && dec_br == 0 && dec_jmp == 0);
+
+        dec_opcode = 0; dec_funct = 36; clk.next();
+        $assert(dec_reg_dst == 1 && dec_we == 1 && dec_asrc == 0 && dec_sub == 0 && dec_aop == 2'b00 && dec_mw == 0 && dec_m2r == 0 && dec_br == 0 && dec_jmp == 0);
+
+        dec_opcode = 0; dec_funct = 37; clk.next();
+        $assert(dec_reg_dst == 1 && dec_we == 1 && dec_asrc == 0 && dec_sub == 0 && dec_aop == 2'b01 && dec_mw == 0 && dec_m2r == 0 && dec_br == 0 && dec_jmp == 0);
+
+        dec_opcode = 0; dec_funct = 42; clk.next();
+        $assert(dec_reg_dst == 1 && dec_we == 1 && dec_asrc == 0 && dec_sub == 1 && dec_aop == 2'b11 && dec_mw == 0 && dec_m2r == 0 && dec_br == 0 && dec_jmp == 0);
+
+        dec_opcode = 8; clk.next();
+        $assert(dec_reg_dst == 0 && dec_we == 1 && dec_asrc == 1 && dec_sub == 0 && dec_aop == 2'b10 && dec_mw == 0 && dec_m2r == 0 && dec_br == 0 && dec_jmp == 0);
+
+        dec_opcode = 10; clk.next();
+        $assert(dec_reg_dst == 0 && dec_we == 1 && dec_asrc == 1 && dec_sub == 1 && dec_aop == 2'b11 && dec_mw == 0 && dec_m2r == 0 && dec_br == 0 && dec_jmp == 0);
+
+        dec_opcode = 35; clk.next();
+        $assert(dec_reg_dst == 0 && dec_we == 1 && dec_asrc == 1 && dec_sub == 0 && dec_aop == 2'b10 && dec_mw == 0 && dec_m2r == 1 && dec_br == 0 && dec_jmp == 0);
+
+        dec_opcode = 43; clk.next();
+        $assert(dec_we == 0 && dec_asrc == 1 && dec_sub == 0 && dec_aop == 2'b10 && dec_mw == 1 && dec_m2r == 0 && dec_br == 0 && dec_jmp == 0);
+
+        dec_opcode = 4; clk.next();
+        $assert(dec_we == 0 && dec_asrc == 0 && dec_sub == 1 && dec_aop == 2'b10 && dec_mw == 0 && dec_m2r == 0 && dec_br == 1 && dec_jmp == 0);
+
+        dec_opcode = 2; clk.next();
+        $assert(dec_we == 0 && dec_mw == 0 && dec_br == 0 && dec_jmp == 1);
+
+        $finish();
+    }
+}

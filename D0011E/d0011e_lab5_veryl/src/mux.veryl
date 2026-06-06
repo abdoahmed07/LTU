@@ -1,0 +1,18 @@
+module FourToOneMux32 (
+    A : input  logic<32>,
+    B : input  logic<32>,
+    C : input  logic<32>,
+    D : input  logic<32>,
+    Op: input  logic<2> ,
+    R : output logic<32>,
+) {
+    always_comb {
+        case Op {
+            2'b00  : R = A;
+            2'b01  : R = B;
+            2'b10  : R = C;
+            2'b11  : R = D;
+            default: R = A;
+        }
+    }
+}

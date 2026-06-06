@@ -1,0 +1,313 @@
+module part3c (
+    a: input  logic,
+    b: input  logic,
+    c: input  logic,
+    d: input  logic,
+    e: input  logic,
+    g: output logic,
+) {
+    var p_mid: logic;
+
+    inst pldcell1: PLDcell (
+        x5 : a,
+        x4 : b,
+        x3 : c,
+        x2 : 0,
+        x1 : 1,
+        x0 : 1,
+        inv: 0,
+        y  : p_mid,
+    );
+
+    inst pldcell2: PLDcell (
+        x5 : !a,
+        x4 : !b,
+        x3 : !c,
+        x2 : p_mid,
+        x1 : d,
+        x0 : e,
+        inv: 0,
+        y  : g,
+    );
+}
+
+#[test(part3c_test)]
+module part3c_test {
+    inst clk: $tb::clock_gen #( period: 10 );
+    var a  : logic;
+    var b  : logic;
+    var c  : logic;
+    var d  : logic;
+    var e  : logic;
+
+    var g: logic;
+
+    inst dut: part3c (
+        a  ,
+        b  ,
+        c  ,
+        d  ,
+        e  ,
+        g  ,
+    );
+
+    initial {
+        a        = 0;
+        b        = 0;
+        c        = 0;
+        d        = 0;
+        e        = 0;
+        clk.next();
+        $assert (g == ((!a & !b & !c) | (a & b & c & d & e)), "Wrong value for 0b00000");
+
+        a        = 0;
+        b        = 0;
+        c        = 0;
+        d        = 0;
+        e        = 1;
+        clk.next();
+        $assert (g == ((!a & !b & !c) | (a & b & c & d & e)), "Wrong value for 0b00001");
+
+        a        = 0;
+        b        = 0;
+        c        = 0;
+        d        = 1;
+        e        = 0;
+        clk.next();
+        $assert (g == ((!a & !b & !c) | (a & b & c & d & e)), "Wrong value for 0b00010");
+
+        a        = 0;
+        b        = 0;
+        c        = 0;
+        d        = 1;
+        e        = 1;
+        clk.next();
+        $assert (g == ((!a & !b & !c) | (a & b & c & d & e)), "Wrong value for 0b00011");
+
+        a        = 0;
+        b        = 0;
+        c        = 1;
+        d        = 0;
+        e        = 0;
+        clk.next();
+        $assert (g == ((!a & !b & !c) | (a & b & c & d & e)), "Wrong value for 0b00100");
+
+        a        = 0;
+        b        = 0;
+        c        = 1;
+        d        = 0;
+        e        = 1;
+        clk.next();
+        $assert (g == ((!a & !b & !c) | (a & b & c & d & e)), "Wrong value for 0b00101");
+
+        a        = 0;
+        b        = 0;
+        c        = 1;
+        d        = 1;
+        e        = 0;
+        clk.next();
+        $assert (g == ((!a & !b & !c) | (a & b & c & d & e)), "Wrong value for 0b00110");
+
+        a        = 0;
+        b        = 0;
+        c        = 1;
+        d        = 1;
+        e        = 1;
+        clk.next();
+        $assert (g == ((!a & !b & !c) | (a & b & c & d & e)), "Wrong value for 0b00111");
+
+        a        = 0;
+        b        = 1;
+        c        = 0;
+        d        = 0;
+        e        = 0;
+        clk.next();
+        $assert (g == ((!a & !b & !c) | (a & b & c & d & e)), "Wrong value for 0b01000");
+
+        a        = 0;
+        b        = 1;
+        c        = 0;
+        d        = 0;
+        e        = 1;
+        clk.next();
+        $assert (g == ((!a & !b & !c) | (a & b & c & d & e)), "Wrong value for 0b01001");
+
+        a        = 0;
+        b        = 1;
+        c        = 0;
+        d        = 1;
+        e        = 0;
+        clk.next();
+        $assert (g == ((!a & !b & !c) | (a & b & c & d & e)), "Wrong value for 0b01010");
+
+        a        = 0;
+        b        = 1;
+        c        = 0;
+        d        = 1;
+        e        = 1;
+        clk.next();
+        $assert (g == ((!a & !b & !c) | (a & b & c & d & e)), "Wrong value for 0b01011");
+
+        a        = 0;
+        b        = 1;
+        c        = 1;
+        d        = 0;
+        e        = 0;
+        clk.next();
+        $assert (g == ((!a & !b & !c) | (a & b & c & d & e)), "Wrong value for 0b01100");
+
+        a        = 0;
+        b        = 1;
+        c        = 1;
+        d        = 0;
+        e        = 1;
+        clk.next();
+        $assert (g == ((!a & !b & !c) | (a & b & c & d & e)), "Wrong value for 0b01101");
+
+        a        = 0;
+        b        = 1;
+        c        = 1;
+        d        = 1;
+        e        = 0;
+        clk.next();
+        $assert (g == ((!a & !b & !c) | (a & b & c & d & e)), "Wrong value for 0b01110");
+
+        a        = 0;
+        b        = 1;
+        c        = 1;
+        d        = 1;
+        e        = 1;
+        clk.next();
+        $assert (g == ((!a & !b & !c) | (a & b & c & d & e)), "Wrong value for 0b01111");
+
+        a        = 1;
+        b        = 0;
+        c        = 0;
+        d        = 0;
+        e        = 0;
+        clk.next();
+        $assert (g == ((!a & !b & !c) | (a & b & c & d & e)), "Wrong value for 0b10000");
+
+        a        = 1;
+        b        = 0;
+        c        = 0;
+        d        = 0;
+        e        = 1;
+        clk.next();
+        $assert (g == ((!a & !b & !c) | (a & b & c & d & e)), "Wrong value for 0b10001");
+
+        a        = 1;
+        b        = 0;
+        c        = 0;
+        d        = 1;
+        e        = 0;
+        clk.next();
+        $assert (g == ((!a & !b & !c) | (a & b & c & d & e)), "Wrong value for 0b10010");
+
+        a        = 1;
+        b        = 0;
+        c        = 0;
+        d        = 1;
+        e        = 1;
+        clk.next();
+        $assert (g == ((!a & !b & !c) | (a & b & c & d & e)), "Wrong value for 0b10011");
+
+        a        = 1;
+        b        = 0;
+        c        = 1;
+        d        = 0;
+        e        = 0;
+        clk.next();
+        $assert (g == ((!a & !b & !c) | (a & b & c & d & e)), "Wrong value for 0b10100");
+
+        a        = 1;
+        b        = 0;
+        c        = 1;
+        d        = 0;
+        e        = 1;
+        clk.next();
+        $assert (g == ((!a & !b & !c) | (a & b & c & d & e)), "Wrong value for 0b10101");
+
+        a        = 1;
+        b        = 0;
+        c        = 1;
+        d        = 1;
+        e        = 0;
+        clk.next();
+        $assert (g == ((!a & !b & !c) | (a & b & c & d & e)), "Wrong value for 0b10110");
+
+        a        = 1;
+        b        = 0;
+        c        = 1;
+        d        = 1;
+        e        = 1;
+        clk.next();
+        $assert (g == ((!a & !b & !c) | (a & b & c & d & e)), "Wrong value for 0b10111");
+
+        a        = 1;
+        b        = 1;
+        c        = 0;
+        d        = 0;
+        e        = 0;
+        clk.next();
+        $assert (g == ((!a & !b & !c) | (a & b & c & d & e)), "Wrong value for 0b11000");
+
+        a        = 1;
+        b        = 1;
+        c        = 0;
+        d        = 0;
+        e        = 1;
+        clk.next();
+        $assert (g == ((!a & !b & !c) | (a & b & c & d & e)), "Wrong value for 0b11001");
+
+        a        = 1;
+        b        = 1;
+        c        = 0;
+        d        = 1;
+        e        = 0;
+        clk.next();
+        $assert (g == ((!a & !b & !c) | (a & b & c & d & e)), "Wrong value for 0b11010");
+
+        a        = 1;
+        b        = 1;
+        c        = 0;
+        d        = 1;
+        e        = 1;
+        clk.next();
+        $assert (g == ((!a & !b & !c) | (a & b & c & d & e)), "Wrong value for 0b11011");
+
+        a        = 1;
+        b        = 1;
+        c        = 1;
+        d        = 0;
+        e        = 0;
+        clk.next();
+        $assert (g == ((!a & !b & !c) | (a & b & c & d & e)), "Wrong value for 0b11100");
+
+        a        = 1;
+        b        = 1;
+        c        = 1;
+        d        = 0;
+        e        = 1;
+        clk.next();
+        $assert (g == ((!a & !b & !c) | (a & b & c & d & e)), "Wrong value for 0b11101");
+
+        a        = 1;
+        b        = 1;
+        c        = 1;
+        d        = 1;
+        e        = 0;
+        clk.next();
+        $assert (g == ((!a & !b & !c) | (a & b & c & d & e)), "Wrong value for 0b11110");
+
+        a        = 1;
+        b        = 1;
+        c        = 1;
+        d        = 1;
+        e        = 1;
+        clk.next();
+        $assert (g == ((!a & !b & !c) | (a & b & c & d & e)), "Wrong value for 0b11111");
+
+        $finish();
+    }
+}

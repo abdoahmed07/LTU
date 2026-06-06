@@ -1,0 +1,15 @@
+*.cache
+*.hw
+*.sim
+
+sim
+
+*.jou
+*.log
+*.pb
+*.sv
+*.map
+dependencies
+*.f
+*.vcd
+.build

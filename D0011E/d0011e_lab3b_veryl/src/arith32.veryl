@@ -1,0 +1,20 @@
+module Arith32 (
+    A  : input  logic<32>,
+    B  : input  logic<32>,
+    Sub: input  logic    ,
+    R  : output logic<32>,
+    V  : output logic    ,
+    C  : output logic    ,
+) {
+    var B_inv: logic<32>;
+    assign B_inv = B ^ {Sub repeat 32};
+
+    inst adder: Adder32 (
+        A   : A,
+        B   : B_inv,
+        c_in: Sub,
+        R   : R,
+        V   : V,
+        C   : C,
+    );
+}

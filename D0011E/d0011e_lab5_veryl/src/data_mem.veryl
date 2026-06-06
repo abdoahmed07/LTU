@@ -1,0 +1,117 @@
+module DataMem #(
+    param Words: u32 = 32,
+) (
+    i_clk     : input  clock              ,
+    i_reset   : input  reset_async_high   ,
+    i_we      : input  logic              ,
+    i_addr    : input  logic<32>          ,
+    i_data    : input  logic<32>          ,
+    i_dbg_addr: input  logic<32>          ,
+    o_data    : output logic<32>          ,
+    o_dbg_data: output logic<32>          ,
+) {
+    var mem         : logic<32>[Words];
+    var word_idx    : logic<5>        ;
+    var dbg_word_idx: logic<5>        ;
+    var in_range    : logic           ;
+    var dbg_in_range: logic           ;
+
+    always_comb {
+        word_idx     = i_addr[6:2];
+        dbg_word_idx = i_dbg_addr[6:2];
+        in_range     = i_addr <: 32'd128;
+        dbg_in_range = i_dbg_addr <: 32'd128;
+    }
+
+    always_ff {
+        if_reset {
+            for i in 0..Words {
+                mem[i] = 0;
+            }
+        } else {
+            if i_we & in_range {
+                mem[word_idx] = i_data;
+            }
+        }
+    }
+
+    always_comb {
+        o_data     = if in_range ? mem[word_idx] : 32'd0;
+        o_dbg_data = if dbg_in_range ? mem[dbg_word_idx] : 32'd0;
+    }
+}
+
+#[test(data_mem_test)]
+module DataMemTest {
+    inst clk: $tb::clock_gen #( period: 10 );
+    inst rst: $tb::reset_gen #( cycles: 1 )(clk);
+
+    var we      : logic    ;
+    var addr    : logic<32>;
+    var data_in : logic<32>;
+    var dbg_addr: logic<32>;
+    var data_out: logic<32>;
+    var dbg_out : logic<32>;
+
+    inst dut: DataMem (
+        i_clk     : clk     ,
+        i_reset   : rst     ,
+        i_we      : we      ,
+        i_addr    : addr    ,
+        i_data    : data_in ,
+        i_dbg_addr: dbg_addr,
+        o_data    : data_out,
+        o_dbg_data: dbg_out ,
+    );
+
+    initial {
+        we       = 0;
+        addr     = 0;
+        data_in  = 0;
+        dbg_addr = 0;
+        rst.assert();
+
+        $assert(dbg_out == 0);
+
+        we      = 1;
+        addr    = 32'd0;
+        data_in = 32'd42;
+        clk.next();
+
+        we       = 0;
+        dbg_addr = 32'd0;
+        $assert(dbg_out == 32'd42);
+
+        we      = 1;
+        addr    = 32'd28;
+        data_in = 32'd100;
+        clk.next();
+
+        we       = 0;
+        dbg_addr = 32'd28;
+        $assert(dbg_out == 32'd100);
+
+        we      = 1;
+        addr    = 32'd128;
+        data_in = 32'd999;
+        clk.next();
+
+        we       = 0;
+        dbg_addr = 32'd124;
+        $assert(dbg_out == 32'd0);
+
+        we      = 1;
+        addr    = 32'd4;
+        data_in = 32'd55;
+        clk.next();
+
+        dbg_addr = 32'd4;
+        $assert(dbg_out == 32'd55);
+
+        rst.assert();
+        $assert(dbg_out == 32'd0);
+
+        clk.next();
+        $finish();
+    }
+}

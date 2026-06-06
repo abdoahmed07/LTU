@@ -1,0 +1,8 @@
+*.sv
+*.sv.map
+*.f
+*.vcd
+*.lock
+.DS_Store
+.build
+dependencies/*

@@ -1,0 +1,18 @@
+{
+    "cSpell.words": [
+        "bcdcheck",
+        "Crashcourse",
+        "hieq",
+        "Laboration",
+        "Netlist",
+        "Netplan",
+        "Verilator",
+        "Verilog",
+        "Veryl",
+        "Vivado",
+        "Yosys"
+    ],
+    "markdown.copyFiles.destination": {
+        "README.md": "images/${fileName}"
+    }
+}

@@ -1,0 +1,118 @@
+module part2a (
+    a: input  logic,
+    b: input  logic,
+    c: input  logic,
+    d: input  logic,
+    f: output logic,
+) {
+    assign f = (b & !c & !d) | (!a & !d) | (a & !c) | (!a & c);
+}
+
+#[test(part2a_test)]
+module part2a_test {
+    // we do not use the clock, but this will make the waveform nice
+    inst clk: $tb::clock_gen #( period: 10 );
+
+    var a: logic;
+    var b: logic;
+    var c: logic;
+    var d: logic;
+    var f: logic;
+
+    inst dut: part2a (
+        a: a,
+        b: b,
+        c: c,
+        d: d,
+        f: f,
+    );
+
+    initial {
+
+        a        = 0;
+        b        = 0;
+        c        = 0;
+        d        = 0;
+        clk.next();
+        a        = 0;
+        b        = 0;
+        c        = 0;
+        d        = 1;
+        clk.next();
+        a        = 0;
+        b        = 0;
+        c        = 1;
+        d        = 0;
+        clk.next();
+        a        = 0;
+        b        = 0;
+        c        = 1;
+        d        = 1;
+        clk.next();
+
+        a        = 0;
+        b        = 1;
+        c        = 0;
+        d        = 0;
+        clk.next();
+        a        = 0;
+        b        = 1;
+        c        = 0;
+        d        = 1;
+        clk.next();
+        a        = 0;
+        b        = 1;
+        c        = 1;
+        d        = 0;
+        clk.next();
+        a        = 0;
+        b        = 1;
+        c        = 1;
+        d        = 1;
+        clk.next();
+
+        a        = 1;
+        b        = 0;
+        c        = 0;
+        d        = 0;
+        clk.next();
+        a        = 1;
+        b        = 0;
+        c        = 0;
+        d        = 1;
+        clk.next();
+        a        = 1;
+        b        = 0;
+        c        = 1;
+        d        = 0;
+        clk.next();
+        a        = 1;
+        b        = 0;
+        c        = 1;
+        d        = 1;
+        clk.next();
+
+        a        = 1;
+        b        = 1;
+        c        = 0;
+        d        = 0;
+        clk.next();
+        a        = 1;
+        b        = 1;
+        c        = 0;
+        d        = 1;
+        clk.next();
+        a        = 1;
+        b        = 1;
+        c        = 1;
+        d        = 0;
+        clk.next();
+        a        = 1;
+        b        = 1;
+        c        = 1;
+        d        = 1;
+        clk.next();
+
+        $finish();
+    }
+}

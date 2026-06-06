@@ -1,0 +1,46 @@
+module Extend16to32 (
+    i_data: input logic<16>,
+    i_sign_ext: input logic,
+    o_data: output logic<32>,
+) {
+    var upper_bits: logic<16>;
+
+    always_comb {
+        if i_sign_ext & i_data[15] {
+            upper_bits = 16'hFFFF;
+        } else {
+            upper_bits = 16'h0000;
+        }
+        o_data = {upper_bits, i_data};
+    }
+}
+
+#[test(extend16_to_32_test)]
+module Extend16to32Test {
+    inst clk: $tb::clock_gen #( period: 10 );
+    var A  : logic<16>;
+    var I  : logic    ;
+    var R  : logic<32>;
+
+    inst dut: Extend16to32 (
+        i_data    : A,
+        i_sign_ext: I,
+        o_data    : R,
+    );
+
+    initial {
+        A        = 1;
+        I        = 0;
+        clk.next();
+        $assert (R == 1, "Wrong value step 1");
+
+        A        = 16'hFFFF;
+        clk.next();
+        $assert (R == 32'h0000FFFF, "Wrong value step 2");
+
+        I        = 1;
+        clk.next();
+        $assert (R == 32'hFFFFFFFF, "Wrong value step 3");
+        $finish ();
+    }
+}

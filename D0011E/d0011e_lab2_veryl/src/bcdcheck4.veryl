@@ -1,0 +1,236 @@
+module bcdcheck4 (
+    x    : input  logic<4>,
+    max  : output logic   ,
+    min  : output logic   ,
+    even : output logic   ,
+    lo3  : output logic   ,
+    noBCD: output logic   ,
+    hieq3: output logic   ,
+) {
+    assign max   = x == 9;
+    assign min   = x == 0;
+    assign even  = !x[0];
+    assign lo3   = x <: 3;
+    assign noBCD = x >: 9 & x <= 15;
+    assign hieq3 = !lo3 & !noBCD;
+}
+
+#[test(bcdcheck4_test)]
+module bcdcheck4_test {
+    inst clk: $tb::clock_gen #( period: 10 );
+    var x  : logic<4>;
+
+    var max  : logic;
+    var min  : logic;
+    var even : logic;
+    var lo3  : logic;
+    var noBCD: logic;
+    var hieq3: logic;
+
+    inst dut: bcdcheck4 (
+        x      ,
+        max    ,
+        min    ,
+        even   ,
+        lo3    ,
+        noBCD  ,
+        hieq3  ,
+    );
+
+    initial {
+
+        x[3]     = 0;
+        x[2]     = 0;
+        x[1]     = 0;
+        x[0]     = 0;
+        clk.next();
+        $assert (max == 0, "wrong output max for 0000");
+        $assert (min == 1, "wrong output min for 0000");
+        $assert (even == 1, "wrong output even for 0000");
+        $assert (lo3 == 1, "wrong output lo3 for 0000");
+        $assert (noBCD == 0, "wrong output noBCD for 0000");
+        $assert (hieq3 == 0, "wrong output hieq3 for 0000");
+
+        x[3]     = 0;
+        x[2]     = 0;
+        x[1]     = 0;
+        x[0]     = 1;
+        clk.next();
+        $assert (max == 0, "wrong output max for 0001");
+        $assert (min == 0, "wrong output min for 0001");
+        $assert (even == 0, "wrong output even for 0001");
+        $assert (lo3 == 1, "wrong output lo3 for 0001");
+        $assert (noBCD == 0, "wrong output noBCD for 0001");
+        $assert (hieq3 == 0, "wrong output hieq3 for 0001");
+
+        x[3]     = 0;
+        x[2]     = 0;
+        x[1]     = 1;
+        x[0]     = 0;
+        clk.next();
+        $assert (max == 0, "wrong output max for 0010");
+        $assert (min == 0, "wrong output min for 0010");
+        $assert (even == 1, "wrong output even for 0010");
+        $assert (lo3 == 1, "wrong output lo3 for 0010");
+        $assert (noBCD == 0, "wrong output noBCD for 0010");
+        $assert (hieq3 == 0, "wrong output hieq3 for 0010");
+
+        x[3]     = 0;
+        x[2]     = 0;
+        x[1]     = 1;
+        x[0]     = 1;
+        clk.next();
+        $assert (max == 0, "wrong output max for 0011");
+        $assert (min == 0, "wrong output min for 0011");
+        $assert (even == 0, "wrong output even for 0011");
+        $assert (lo3 == 0, "wrong output lo3 for 0011");
+        $assert (noBCD == 0, "wrong output noBCD for 0011");
+        $assert (hieq3 == 1, "wrong output hieq3 for 0011");
+
+        x[3]     = 0;
+        x[2]     = 1;
+        x[1]     = 0;
+        x[0]     = 0;
+        clk.next();
+        $assert (max == 0, "wrong output max for 0100");
+        $assert (min == 0, "wrong output min for 0100");
+        $assert (even == 1, "wrong output even for 0100");
+        $assert (lo3 == 0, "wrong output lo3 for 0100");
+        $assert (noBCD == 0, "wrong output noBCD for 0100");
+        $assert (hieq3 == 1, "wrong output hieq3 for 0100");
+
+        x[3]     = 0;
+        x[2]     = 1;
+        x[1]     = 0;
+        x[0]     = 1;
+        clk.next();
+        $assert (max == 0, "wrong output max for 0101");
+        $assert (min == 0, "wrong output min for 0101");
+        $assert (even == 0, "wrong output even for 0101");
+        $assert (lo3 == 0, "wrong output lo3 for 0101");
+        $assert (noBCD == 0, "wrong output noBCD for 0101");
+        $assert (hieq3 == 1, "wrong output hieq3 for 0101");
+
+        x[3]     = 0;
+        x[2]     = 1;
+        x[1]     = 1;
+        x[0]     = 0;
+        clk.next();
+        $assert (max == 0, "wrong output max for 0110");
+        $assert (min == 0, "wrong output min for 0110");
+        $assert (even == 1, "wrong output even for 0110");
+        $assert (lo3 == 0, "wrong output lo3 for 0110");
+        $assert (noBCD == 0, "wrong output noBCD for 0110");
+        $assert (hieq3 == 1, "wrong output hieq3 for 0110");
+
+        x[3]     = 0;
+        x[2]     = 1;
+        x[1]     = 1;
+        x[0]     = 1;
+        clk.next();
+        $assert (max == 0, "wrong output max for 0111");
+        $assert (min == 0, "wrong output min for 0111");
+        $assert (even == 0, "wrong output even for 0111");
+        $assert (lo3 == 0, "wrong output lo3 for 0111");
+        $assert (noBCD == 0, "wrong output noBCD for 0111");
+        $assert (hieq3 == 1, "wrong output hieq3 for 0111");
+
+        x[3]     = 1;
+        x[2]     = 0;
+        x[1]     = 0;
+        x[0]     = 0;
+        clk.next();
+        $assert (max == 0, "wrong output max for 1000");
+        $assert (min == 0, "wrong output min for 1000");
+        $assert (even == 1, "wrong output even for 1000");
+        $assert (lo3 == 0, "wrong output lo3 for 1000");
+        $assert (noBCD == 0, "wrong output noBCD for 1000");
+        $assert (hieq3 == 1, "wrong output hieq3 for 1000");
+
+        x[3]     = 1;
+        x[2]     = 0;
+        x[1]     = 0;
+        x[0]     = 1;
+        clk.next();
+        $assert (max == 1, "wrong output max for 1001");
+        $assert (min == 0, "wrong output min for 1001");
+        $assert (even == 0, "wrong output even for 1001");
+        $assert (lo3 == 0, "wrong output lo3 for 1001");
+        $assert (noBCD == 0, "wrong output noBCD for 1001");
+        $assert (hieq3 == 1, "wrong output hieq3 for 1001");
+
+        x[3]     = 1;
+        x[2]     = 0;
+        x[1]     = 1;
+        x[0]     = 0;
+        clk.next();
+        $assert (max == 0, "wrong output max for 1010");
+        $assert (min == 0, "wrong output min for 1010");
+        $assert (even == 1, "wrong output even for 1010");
+        $assert (lo3 == 0, "wrong output lo3 for 1010");
+        $assert (noBCD == 1, "wrong output noBCD for 1010");
+        $assert (hieq3 == 0, "wrong output hieq3 for 1010");
+
+        x[3]     = 1;
+        x[2]     = 0;
+        x[1]     = 1;
+        x[0]     = 1;
+        clk.next();
+        $assert (max == 0, "wrong output max for 1011");
+        $assert (min == 0, "wrong output min for 1011");
+        $assert (even == 0, "wrong output even for 1011");
+        $assert (lo3 == 0, "wrong output lo3 for 1011");
+        $assert (noBCD == 1, "wrong output noBCD for 1011");
+        $assert (hieq3 == 0, "wrong output hieq3 for 1011");
+
+        x[3]     = 1;
+        x[2]     = 1;
+        x[1]     = 0;
+        x[0]     = 0;
+        clk.next();
+        $assert (max == 0, "wrong output max for 1100");
+        $assert (min == 0, "wrong output min for 1100");
+        $assert (even == 1, "wrong output even for 1100");
+        $assert (lo3 == 0, "wrong output lo3 for 1100");
+        $assert (noBCD == 1, "wrong output noBCD for 1100");
+        $assert (hieq3 == 0, "wrong output hieq3 for 1100");
+
+        x[3]     = 1;
+        x[2]     = 1;
+        x[1]     = 0;
+        x[0]     = 1;
+        clk.next();
+        $assert (max == 0, "wrong output max for 1101");
+        $assert (min == 0, "wrong output min for 1101");
+        $assert (even == 0, "wrong output even for 1101");
+        $assert (lo3 == 0, "wrong output lo3 for 1101");
+        $assert (noBCD == 1, "wrong output noBCD for 1101");
+        $assert (hieq3 == 0, "wrong output hieq3 for 1101");
+
+        x[3]     = 1;
+        x[2]     = 1;
+        x[1]     = 1;
+        x[0]     = 0;
+        clk.next();
+        $assert (max == 0, "wrong output max for 1110");
+        $assert (min == 0, "wrong output min for 1110");
+        $assert (even == 1, "wrong output even for 1110");
+        $assert (lo3 == 0, "wrong output lo3 for 1110");
+        $assert (noBCD == 1, "wrong output noBCD for 1110");
+        $assert (hieq3 == 0, "wrong output hieq3 for 1110");
+
+        x[3]     = 1;
+        x[2]     = 1;
+        x[1]     = 1;
+        x[0]     = 1;
+        clk.next();
+        $assert (max == 0, "wrong output max for 1111");
+        $assert (min == 0, "wrong output min for 1111");
+        $assert (even == 0, "wrong output even for 1111");
+        $assert (lo3 == 0, "wrong output lo3 for 1111");
+        $assert (noBCD == 1, "wrong output noBCD for 1111");
+        $assert (hieq3 == 0, "wrong output hieq3 for 1111");
+
+        $finish();
+    }
+}

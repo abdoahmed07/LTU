@@ -1,0 +1,164 @@
+module part3b (
+    a: input  logic,
+    b: input  logic,
+    c: input  logic,
+    d: input  logic,
+    f: output logic,
+) {
+    inst pldcell1: PLDcell (
+        x5 : a,
+        x4 : c,
+        x3 : 1,
+        x2 : !a,
+        x1 : !c,
+        x0 : d,
+        inv: 1,
+        y  : f,
+    );
+}
+
+#[test(part3b_test)]
+module part3b_test {
+    inst clk: $tb::clock_gen #( period: 10 );
+
+    var a: logic;
+    var b: logic;
+    var c: logic;
+    var d: logic;
+
+    var f3b: logic;
+    var f2a: logic;
+
+    inst p3b: part3b (
+        a     ,
+        b     ,
+        c     ,
+        d     ,
+        f: f3b,
+    );
+    inst p2a: part2a (
+        a     ,
+        b     ,
+        c     ,
+        d     ,
+        f: f2a,
+    );
+
+    initial {
+
+        a        = 0;
+        b        = 0;
+        c        = 0;
+        d        = 0;
+        clk.next();
+        // If you consider part2a as implemented correctly you can used it as source of truth to verify part3b
+        $assert(f3b == f2a, "f3b and f2a implementations differ for 0000");
+
+        a        = 0;
+        b        = 0;
+        c        = 0;
+        d        = 1;
+        clk.next();
+        $assert (f3b == f2a, "f3b and f2a implementations differ for 0001");
+
+        a        = 0;
+        b        = 0;
+        c        = 1;
+        d        = 0;
+        clk.next();
+        $assert (f3b == f2a, "f3b and f2a implementations differ for 0010");
+
+        a        = 0;
+        b        = 0;
+        c        = 1;
+        d        = 1;
+        clk.next();
+        $assert (f3b == f2a, "f3b and f2a implementations differ for 0011");
+
+        a        = 0;
+        b        = 1;
+        c        = 0;
+        d        = 0;
+        clk.next();
+        $assert (f3b == f2a, "f3b and f2a implementations differ for 0100");
+
+        a        = 0;
+        b        = 1;
+        c        = 0;
+        d        = 1;
+        clk.next();
+        $assert (f3b == f2a, "f3b and f2a implementations differ for 0101");
+
+        a        = 0;
+        b        = 1;
+        c        = 1;
+        d        = 0;
+        clk.next();
+        $assert (f3b == f2a, "f3b and f2a implementations differ for 0110");
+
+        a        = 0;
+        b        = 1;
+        c        = 1;
+        d        = 1;
+        clk.next();
+        $assert (f3b == f2a, "f3b and f2a implementations differ for 0111");
+
+        a        = 1;
+        b        = 0;
+        c        = 0;
+        d        = 0;
+        clk.next();
+        $assert (f3b == f2a, "f3b and f2a implementations differ for 1000");
+
+        a        = 1;
+        b        = 0;
+        c        = 0;
+        d        = 1;
+        clk.next();
+        $assert (f3b == f2a, "f3b and f2a implementations differ for 1001");
+
+        a        = 1;
+        b        = 0;
+        c        = 1;
+        d        = 0;
+        clk.next();
+        $assert (f3b == f2a, "f3b and f2a implementations differ for 1010");
+
+        a        = 1;
+        b        = 0;
+        c        = 1;
+        d        = 1;
+        clk.next();
+        $assert (f3b == f2a, "f3b and f2a implementations differ for 1011");
+
+        a        = 1;
+        b        = 1;
+        c        = 0;
+        d        = 0;
+        clk.next();
+        $assert (f3b == f2a, "f3b and f2a implementations differ for 1100");
+
+        a        = 1;
+        b        = 1;
+        c        = 0;
+        d        = 1;
+        clk.next();
+        $assert (f3b == f2a, "f3b and f2a implementations differ for 1101");
+
+        a        = 1;
+        b        = 1;
+        c        = 1;
+        d        = 0;
+        clk.next();
+        $assert (f3b == f2a, "f3b and f2a implementations differ for 1110");
+
+        a        = 1;
+        b        = 1;
+        c        = 1;
+        d        = 1;
+        clk.next();
+        $assert (f3b == f2a, "f3b and f2a implementations differ for 1111");
+
+        $finish();
+    }
+}

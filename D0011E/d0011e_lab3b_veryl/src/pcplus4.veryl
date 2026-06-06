@@ -1,0 +1,27 @@
+module PCPlus4 (
+    Clk  : input  clock    ,
+    Reset: input  reset    ,
+    Q    : output logic<32>,
+) {
+    var Q_reg : logic<32>;
+    var Q_next: logic<32>;
+
+    inst adder: Adder32 (
+        A   : Q_reg,
+        B   : 32'h00000004,
+        c_in: 1'b0,
+        R   : Q_next,
+        V   : _,
+        C   : _,
+    );
+
+    always_ff (Clk, Reset) {
+        if_reset {
+            Q_reg = 32'h0;
+        } else {
+            Q_reg = Q_next;
+        }
+    }
+
+    assign Q = Q_reg;
+}

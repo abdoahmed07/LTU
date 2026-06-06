@@ -1,0 +1,203 @@
+module bcdcheck (
+    x3   : input  logic,
+    x2   : input  logic,
+    x1   : input  logic,
+    x0   : input  logic,
+    max  : output logic,
+    min  : output logic,
+    even : output logic,
+    lo3  : output logic,
+    noBCD: output logic,
+) {
+    assign max   = x3 & !x2 & !x1 & x0;
+    assign min   = !x3 & !x2 & !x1 & !x0;
+    assign even  = !x0;
+    assign lo3   = (!x3 & !x2 & !x1 & !x0) | (!x3 & !x2 & !x1 & x0) | (!x3 & !x2 & x1 & !x0);
+    assign noBCD = (x3 & x2) | (x3 & !x2 & x1);
+}
+
+#[test(bcdcheck_test)]
+module bcdcheck_test {
+    var din    : logic<4>;
+    var d_max  : logic   ;
+    var d_min  : logic   ;
+    var d_even : logic   ;
+    var d_lo3  : logic   ;
+    var d_noBCD: logic   ;
+
+    inst dut: bcdcheck (
+        x3   : din[3] ,
+        x2   : din[2] ,
+        x1   : din[1] ,
+        x0   : din[0] ,
+        max  : d_max  ,
+        min  : d_min  ,
+        even : d_even ,
+        lo3  : d_lo3  ,
+        noBCD: d_noBCD,
+    );
+    initial {
+
+        din[3]  = 0;
+        din[2]  = 0;
+        din[1]  = 0;
+        din[0]  = 0;
+        $assert(d_max == 0, "wrong output max for 0000");
+        $assert(d_min == 1, "wrong output min for 0000");
+        $assert(d_even == 1, "wrong output even for 0000");
+        $assert(d_lo3 == 1, "wrong output lo3 for 0000");
+        $assert(d_noBCD == 0, "wrong output noBCD for 0000");
+
+        din[3]  = 0;
+        din[2]  = 0;
+        din[1]  = 0;
+        din[0]  = 1;
+        $assert(d_max == 0, "wrong output max for 0001");
+        $assert(d_min == 0, "wrong output min for 0001");
+        $assert(d_even == 0, "wrong output even for 0001");
+        $assert(d_lo3 == 1, "wrong output lo3 for 0001");
+        $assert(d_noBCD == 0, "wrong output noBCD for 0001");
+
+        din[3]  = 0;
+        din[2]  = 0;
+        din[1]  = 1;
+        din[0]  = 0;
+        $assert(d_max == 0, "wrong output max for 0010");
+        $assert(d_min == 0, "wrong output min for 0010");
+        $assert(d_even == 1, "wrong output even for 0010");
+        $assert(d_lo3 == 1, "wrong output lo3 for 0010");
+        $assert(d_noBCD == 0, "wrong output noBCD for 0010");
+
+        din[3]  = 0;
+        din[2]  = 0;
+        din[1]  = 1;
+        din[0]  = 1;
+        $assert(d_max == 0, "wrong output max for 0011");
+        $assert(d_min == 0, "wrong output min for 0011");
+        $assert(d_even == 0, "wrong output even for 0011");
+        $assert(d_lo3 == 0, "wrong output lo3 for 0011");
+        $assert(d_noBCD == 0, "wrong output noBCD for 0011");
+
+        din[3]  = 0;
+        din[2]  = 1;
+        din[1]  = 0;
+        din[0]  = 0;
+        $assert(d_max == 0, "wrong output max for 0100");
+        $assert(d_min == 0, "wrong output min for 0100");
+        $assert(d_even == 1, "wrong output even for 0100");
+        $assert(d_lo3 == 0, "wrong output lo3 for 0100");
+        $assert(d_noBCD == 0, "wrong output noBCD for 0100");
+
+        din[3]  = 0;
+        din[2]  = 1;
+        din[1]  = 0;
+        din[0]  = 1;
+        $assert(d_max == 0, "wrong output max for 0101");
+        $assert(d_min == 0, "wrong output min for 0101");
+        $assert(d_even == 0, "wrong output even for 0101");
+        $assert(d_lo3 == 0, "wrong output lo3 for 0101");
+        $assert(d_noBCD == 0, "wrong output noBCD for 0101");
+
+        din[3]  = 0;
+        din[2]  = 1;
+        din[1]  = 1;
+        din[0]  = 0;
+        $assert(d_max == 0, "wrong output max for 0110");
+        $assert(d_min == 0, "wrong output min for 0110");
+        $assert(d_even == 1, "wrong output even for 0110");
+        $assert(d_lo3 == 0, "wrong output lo3 for 0110");
+        $assert(d_noBCD == 0, "wrong output noBCD for 0110");
+
+        din[3]  = 0;
+        din[2]  = 1;
+        din[1]  = 1;
+        din[0]  = 1;
+        $assert(d_max == 0, "wrong output max for 0111");
+        $assert(d_min == 0, "wrong output min for 0111");
+        $assert(d_even == 0, "wrong output even for 0111");
+        $assert(d_lo3 == 0, "wrong output lo3 for 0111");
+        $assert(d_noBCD == 0, "wrong output noBCD for 0111");
+
+        din[3]  = 1;
+        din[2]  = 0;
+        din[1]  = 0;
+        din[0]  = 0;
+        $assert(d_max == 0, "wrong output max for 1000");
+        $assert(d_min == 0, "wrong output min for 1000");
+        $assert(d_even == 1, "wrong output even for 1000");
+        $assert(d_lo3 == 0, "wrong output lo3 for 1000");
+        $assert(d_noBCD == 0, "wrong output noBCD for 1000");
+
+        din[3]  = 1;
+        din[2]  = 0;
+        din[1]  = 0;
+        din[0]  = 1;
+        $assert(d_max == 1, "wrong output max for 1001");
+        $assert(d_min == 0, "wrong output min for 1001");
+        $assert(d_even == 0, "wrong output even for 1001");
+        $assert(d_lo3 == 0, "wrong output lo3 for 1001");
+        $assert(d_noBCD == 0, "wrong output noBCD for 1001");
+
+        din[3]  = 1;
+        din[2]  = 0;
+        din[1]  = 1;
+        din[0]  = 0;
+        $assert(d_max == 0, "wrong output max for 1010");
+        $assert(d_min == 0, "wrong output min for 1010");
+        $assert(d_even == 1, "wrong output even for 1010");
+        $assert(d_lo3 == 0, "wrong output lo3 for 1010");
+        $assert(d_noBCD == 1, "wrong output noBCD for 1010");
+
+        din[3]  = 1;
+        din[2]  = 0;
+        din[1]  = 1;
+        din[0]  = 1;
+        $assert(d_max == 0, "wrong output max for 1011");
+        $assert(d_min == 0, "wrong output min for 1011");
+        $assert(d_even == 0, "wrong output even for 1011");
+        $assert(d_lo3 == 0, "wrong output lo3 for 1011");
+        $assert(d_noBCD == 1, "wrong output noBCD for 1011");
+
+        din[3]  = 1;
+        din[2]  = 1;
+        din[1]  = 0;
+        din[0]  = 0;
+        $assert(d_max == 0, "wrong output max for 1100");
+        $assert(d_min == 0, "wrong output min for 1100");
+        $assert(d_even == 1, "wrong output even for 1100");
+        $assert(d_lo3 == 0, "wrong output lo3 for 1100");
+        $assert(d_noBCD == 1, "wrong output noBCD for 1100");
+
+        din[3]  = 1;
+        din[2]  = 1;
+        din[1]  = 0;
+        din[0]  = 1;
+        $assert(d_max == 0, "wrong output max for 1101");
+        $assert(d_min == 0, "wrong output min for 1101");
+        $assert(d_even == 0, "wrong output even for 1101");
+        $assert(d_lo3 == 0, "wrong output lo3 for 1101");
+        $assert(d_noBCD == 1, "wrong output noBCD for 1101");
+
+        din[3]  = 1;
+        din[2]  = 1;
+        din[1]  = 1;
+        din[0]  = 0;
+        $assert(d_max == 0, "wrong output max for 1110");
+        $assert(d_min == 0, "wrong output min for 1110");
+        $assert(d_even == 1, "wrong output even for 1110");
+        $assert(d_lo3 == 0, "wrong output lo3 for 1110");
+        $assert(d_noBCD == 1, "wrong output noBCD for 1110");
+
+        din[3]  = 1;
+        din[2]  = 1;
+        din[1]  = 1;
+        din[0]  = 1;
+        $assert(d_max == 0, "wrong output max for 1111");
+        $assert(d_min == 0, "wrong output min for 1111");
+        $assert(d_even == 0, "wrong output even for 1111");
+        $assert(d_lo3 == 0, "wrong output lo3 for 1111");
+        $assert(d_noBCD == 1, "wrong output noBCD for 1111");
+
+        $finish();
+    }
+}

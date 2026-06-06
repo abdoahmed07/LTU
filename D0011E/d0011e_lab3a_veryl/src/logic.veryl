@@ -1,0 +1,71 @@
+module Logic (
+    a : input  logic<4>,
+    b : input  logic<4>,
+    op: input  logic<2>,
+    r : output logic<4>,
+) {
+    var and_out: logic<4>;
+    var or_out : logic<4>;
+    var xor_out: logic<4>;
+    var nor_out: logic<4>;
+
+    assign and_out = a & b;
+    assign or_out  = a | b;
+    assign xor_out = a ^ b;
+    assign nor_out = ~(a | b);
+
+    always_comb {
+        case op {
+            2'b00  : r = and_out;
+            2'b01  : r = or_out;
+            2'b10  : r = xor_out;
+            2'b11  : r = nor_out;
+            default: r = 4'b0000;
+        }
+    }
+}
+
+#[test(Logic_test_veryl)]
+module Logic_test {
+    inst clk: $tb::clock_gen #( period: 10 );
+    var a  : logic<4>;
+    var b  : logic<4>;
+    var op : logic<2>;
+
+    var r: logic<4>;
+
+    inst dut: Logic (
+        a   ,
+        b   ,
+        op  ,
+        r   ,
+    );
+    initial {
+
+        a        = 4'b1100;
+        b        = 4'b1010;
+        op       = 2'b00;
+        clk.next();
+        $assert (r == 4'b1000, "Wrong value for and");
+
+        a        = 4'b1100;
+        b        = 4'b1010;
+        op       = 2'b01;
+        clk.next();
+        $assert (r == 4'b1110, "Wrong value for or");
+
+        a        = 4'b1100;
+        b        = 4'b1010;
+        op       = 2'b10;
+        clk.next();
+        $assert (r == 4'b0110, "Wrong value for xor");
+
+        a        = 4'b1100;
+        b        = 4'b1010;
+        op       = 2'b11;
+        clk.next();
+        $assert (r == 4'b0001, "Wrong value for nor");
+
+        $finish();
+    }
+}

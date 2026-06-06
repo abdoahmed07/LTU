@@ -1,0 +1,79 @@
+module Adder (
+    a   : input  logic<4>,
+    b   : input  logic<4>,
+    c_in: input  logic   ,
+    r   : output logic<4>,
+    c   : output logic   ,
+    v   : output logic   ,
+) {
+    var c0: logic;
+    var c1: logic;
+    var c2: logic;
+
+    inst fa0: FullAdder (
+        a    : a[0],
+        b    : b[0],
+        c_in : c_in,
+        r    : r[0],
+        c_out: c0  ,
+    );
+
+    inst fa1: FullAdder (
+        a    : a[1],
+        b    : b[1],
+        c_in : c0  ,
+        r    : r[1],
+        c_out: c1  ,
+    );
+
+    inst fa2: FullAdder (
+        a    : a[2],
+        b    : b[2],
+        c_in : c1  ,
+        r    : r[2],
+        c_out: c2  ,
+    );
+
+    inst fa3: FullAdder (
+        a    : a[3],
+        b    : b[3],
+        c_in : c2  ,
+        r    : r[3],
+        c_out: c   ,
+    );
+
+    assign v = c2 ^ c;
+}
+
+#[test(Adder_test)]
+module Adder_test {
+    inst clk: $tb::clock_gen #(period: 10);
+    var a   : logic<4>;
+    var b   : logic<4>;
+    var c_in: logic;
+    var r   : logic<4>;
+    var c   : logic;
+    var v   : logic;
+
+    inst dut: Adder (a, b, c_in, r, c, v);
+
+    initial {
+        a = 4'b0000; b = 4'b0000; c_in = 1'b0;
+        clk.next();
+        $assert(r == 4'b0000 && c == 1'b0, "Wrong value for a=0 b=0");
+
+        a = 4'b0100; b = 4'b0101; c_in = 1'b0;
+        clk.next();
+        $assert(r == 4'b1001 && c == 1'b0, "Wrong value for a=4 b=5");
+
+        a = 4'b1010; b = 4'b0110; c_in = 1'b0;
+        clk.next();
+        $assert(r == 4'b0000 && v == 1'b0, "Wrong value for a=-6 b=6");
+
+        a = 4'b1100; b = 4'b1101; c_in = 1'b0;
+        clk.next();
+        $assert(c == 1'b1, "Wrong value for a=12 b=13");
+
+        $finish();
+    }
+}

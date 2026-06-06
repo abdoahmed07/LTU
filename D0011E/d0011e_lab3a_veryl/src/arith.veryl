@@ -1,0 +1,53 @@
+module Arith (
+    a  : input  logic<4>,
+    b  : input  logic<4>,
+    sub: input  logic   ,
+    r  : output logic<4>,
+    c  : output logic   ,
+    v  : output logic   ,
+) {
+    var b_eff: logic<4>;
+    assign b_eff = b ^ {sub repeat 4};
+
+    inst adder: Adder (
+        a    : a    ,
+        b    : b_eff,
+        c_in : sub  ,
+        r    : r    ,
+        c    : c    ,
+        v    : v    ,
+    );
+}
+
+#[test(Arith_test)]
+module Arith_test {
+    inst clk: $tb::clock_gen #(period: 10);
+    var a  : logic<4>;
+    var b  : logic<4>;
+    var sub: logic;
+    var r  : logic<4>;
+    var c  : logic;
+    var v  : logic;
+
+    inst dut: Arith (a, b, sub, r, c, v);
+
+    initial {
+        a = 4'b0100; b = 4'b0011; sub = 1'b0;
+        clk.next();
+        $assert(r == 4'b0111 && v == 1'b0 && c == 1'b0, "Wrong value for a=0100 b=0011");
+
+        a = 4'b0111; b = 4'b0010; sub = 1'b0;
+        clk.next();
+        $assert(r == 4'b1001 && v == 1'b1 && c == 1'b0, "Wrong value for a=0111 b=0010");
+
+        a = 4'b0111; b = 4'b0010; sub = 1'b1;
+        clk.next();
+        $assert(r == 4'b0101 && v == 1'b0 && c == 1'b1, "Wrong value for a=0111 b=0010 sub=1");
+
+        a = 4'b0000; b = 4'b1000; sub = 1'b1;
+        clk.next();
+        $assert(r == 4'b1000 && v == 1'b1 && c == 1'b0, "Wrong value for a=0000 b=1000 sub=1");
+
+        $finish();
+    }
+}

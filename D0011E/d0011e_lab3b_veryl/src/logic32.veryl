@@ -1,0 +1,9 @@
+module Logic32 (
+    A    : input  logic<32>,
+    B    : input  logic<32>,
+    and_r: output logic<32>,
+    or_r : output logic<32>,
+) {
+    assign and_r = A & B;
+    assign or_r  = A | B;
+}

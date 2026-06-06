@@ -1,0 +1,15 @@
+stages:          # List of stages for jobs, and their order of execution
+  - teststage
+
+test-job:       # This job runs in the build stage, which runs first.
+  stage: teststage
+  tags:
+    - docker
+  image: docker.io/veryllang/veryl:latest
+  script:
+    - verylup install nightly
+    - verylup override set nightly
+    - verylup update
+    - veryl test
+
+

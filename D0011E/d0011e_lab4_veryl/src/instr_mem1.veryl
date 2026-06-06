@@ -1,0 +1,57 @@
+module InstrMem1 (
+    i_addr : input  logic<32>,
+    o_instr: output logic<32>,
+) {
+    assign o_instr = case i_addr {
+        32'h0000_0000: 32'b001000_00001_00000_0000000000000100, // addi $r0, $r1, 4   -> NOP (writes r0, has no effect)
+        32'h0000_0004: 32'b001000_00001_00000_1111111111111000, // addi $r0, $r1, -8  -> NOP (writes r0, has no effect)
+        32'h0000_0008: 32'b001000_00010_00001_0000000000001000, // addi $r1, $r2, 8   -> r1 = r2 + 8 = 8
+        32'h0000_000c: 32'b000000_00000_00001_00010_00000_100000, // add $r2, $r0, $r1 -> r2 = r0 + r1 = 8
+        32'h0000_0010: 32'b001000_00000_00010_0000000000000010, // addi $r2, $r0, 2   -> r2 = r0 + 2 = 2
+        32'h0000_0014: 32'b000000_00010_00001_00011_00000_100010, // sub $r3, $r2, $r1 -> r3 = r2 - r1 = -6
+        32'h0000_0018: 32'b000000_00000_00011_00100_00000_101010, // slt $r4, $r0, $r3 -> r4 = (r0 < r3) = (0 < -6) = 0
+        32'h0000_001c: 32'b001010_00011_00100_1111111111111011, // slti $r4, $r3, -5  -> r4 = (r3 < -5) = (-6 < -5) = 1
+        32'h0000_0020: 32'b000000_00000_00100_00101_00000_101010, // slt $r5, $r0, $r4 -> r5 = (r0 < r4) = (0 < 1) = 1
+        32'h0000_0024: 32'b000000_00011_00000_00110_00000_100101, // or $r6, $r3, $r0  -> r6 = r3 | r0 = -6
+        32'h0000_0028: 32'b000000_00001_00011_00111_00000_100100, // and $r7, $r1, $r3 -> r7 = r1 & r3 = 8
+        32'h0000_002c: 32'b000000_00001_00011_01000_00000_100111, // nor $r8, $r1, $r3 -> NOP (NOR not implemented, r8 stays 0)
+        default      : 32'b111111_00001_00000_0000000000000001, // unknown instruction -> no effect
+    };
+}
+
+#[test(instr_mem1)]
+module InstrMem1Test {
+    inst clk  : $tb::clock_gen #( period: 10 );
+    var addr : logic<32>;
+    var instr: logic<32>;
+
+    inst dut: InstrMem1 (
+        i_addr : addr ,
+        o_instr: instr,
+    );
+
+    var op   : logic<6> ;
+    var funct: logic<6> ;
+    var rs   : logic<5> ;
+    var rt   : logic<5> ;
+    var rd   : logic<5> ;
+    var imm  : logic<16>;
+
+    always_comb {
+        op    = instr[31:26];
+        rs    = instr[25:21];
+        rt    = instr[20:16];
+        rd    = instr[15:11];
+        imm   = instr[15:0];
+        funct = instr[5:0];
+    }
+
+    initial {
+        addr = 0;
+        for i in 0..13 {
+            clk.next();
+            addr = addr + 4;
+        }
+        $finish();
+    }
+}

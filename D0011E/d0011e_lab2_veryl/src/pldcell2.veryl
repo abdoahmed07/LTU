@@ -1,0 +1,25 @@
+// Part 4 PLD cell: three 4-input AND gates → OR → optional inversion
+// y = inv ^ ((a3&a2&a1&a0) | (b3&b2&b1&b0) | (c3&c2&c1&c0))
+// To disable a product term, connect one of its inputs to 0.
+// To disable an input within an active term, connect it to 1.
+module PLDcell2 (
+    a3 : input  logic,
+    a2 : input  logic,
+    a1 : input  logic,
+    a0 : input  logic,
+    b3 : input  logic,
+    b2 : input  logic,
+    b1 : input  logic,
+    b0 : input  logic,
+    c3 : input  logic,
+    c2 : input  logic,
+    c1 : input  logic,
+    c0 : input  logic,
+    inv: input  logic,
+    y  : output logic,
+) {
+    let p1: logic = a3 & a2 & a1 & a0;
+    let p2: logic = b3 & b2 & b1 & b0;
+    let p3: logic = c3 & c2 & c1 & c0;
+    assign y = inv ^ (p1 | p2 | p3);
+}

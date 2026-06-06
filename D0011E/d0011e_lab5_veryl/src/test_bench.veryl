@@ -1,0 +1,69 @@
+#[test(lab3b_test)]
+module Lab3bTest {
+    inst clk: $tb::clock_gen #( period: 10 );
+    inst rst: $tb::reset_gen #( cycles: 1 )(clk);
+    var A  : logic<32>;
+    var B  : logic<32>;
+    var Sub: logic   ;
+    var Op : logic<2>;
+    var R  : logic<32>;
+    var V  : logic    ;
+    var C  : logic    ;
+    var Z  : logic    ;
+    var Q  : logic<32>;
+
+    inst alu_dut: Alu32 (
+        A  ,
+        B  ,
+        Sub,
+        Op ,
+        R  ,
+        V  ,
+        C  ,
+        Z  ,
+    );
+    inst pcp4_dut: PCPlus4 (
+        Clk  : clk,
+        Reset: rst,
+        Q         ,
+    );
+
+    initial {
+        A          = 'h000F4240;
+        B          = 'hFFFFFFFF;
+        Op         = 2'b00;
+        Sub        = 0;
+        rst.assert(clk);
+        $assert (R == 'h000F4240 && Q == 0, "Wrong value step 1");
+
+        A        = 'h000F4240;
+        B        = 'hFFFFFFFF;
+        Op       = 2'b01;
+        Sub      = 1;
+        clk.next();
+        $assert (R == 'hFFFFFFFF && Q == 4, "Wrong value step 2");
+
+        A        = 'hFACEFEED;
+        B        = 'h00000AAA;
+        Op       = 2'b10;
+        Sub      = 0;
+        clk.next();
+        $assert (R == 'hFACF0997 && Q == 8, "Wrong value step 3");
+
+        A        = 'hFACEFEED;
+        B        = 'hDEADBEEF;
+        Op       = 2'b10;
+        Sub      = 1;
+        clk.next();
+        $assert (R == 'h1C213FFE && Q == 12, "Wrong value step 4");
+
+        A          = 'hDEADBEEF;
+        B          = 'hFACEFEED;
+        Op         = 2'b11;
+        Sub        = 1;
+        rst.assert(clk);
+        $assert (R == 'h00000001 && Q == 0, "Wrong value step 5");
+
+        $finish();
+    }
+}

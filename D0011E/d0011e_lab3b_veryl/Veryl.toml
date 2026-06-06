@@ -1,0 +1,7 @@
+[project]
+name = "d0011e_lab3b"
+version = "0.1.0"
+
+
+[build]
+exclude_std = true

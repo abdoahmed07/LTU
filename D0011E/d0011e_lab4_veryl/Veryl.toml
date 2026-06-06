@@ -1,0 +1,11 @@
+[project]
+name = "vips"
+version = "0.1.0"
+
+[build]
+exclude_std = true
+target = {type = "directory", path = "dist"} # outputs .sv files to separate folder
+sourcemap_target = {type = "none"} # skips outputting .sv.map files
+
+[test]
+waveform_target = {type = "directory", path = "dist/wave"}

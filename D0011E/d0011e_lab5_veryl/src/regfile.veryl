@@ -1,0 +1,117 @@
+// src/regfile.veryl
+
+module RegFile (
+    i_clk     : input  clock    , // dedicated clock
+    i_reset   : input  reset_async_high ,
+    i_a_addr  : input  logic<5> ,
+    i_b_addr  : input  logic<5> ,
+    i_w_ena   : input  logic    ,
+    i_w_addr  : input  logic<5> ,
+    i_w_data  : input  logic<32>,
+    i_dbg_addr: input  logic<5> ,
+    o_a_data  : output logic<32>,
+    o_b_data  : output logic<32>,
+    o_dbg_data: output logic<32>,
+
+) {
+    var regs: logic<32> [32];
+    always_ff {
+        if_reset {
+            // regs = {{32'0} repeat 32};
+            for i in 0..32 {
+                regs[i] = 0;
+            }
+        } else {
+            if i_w_ena {
+                regs[i_w_addr] = i_w_data;
+            }
+        }
+    }
+
+    always_comb {
+        o_a_data   = if i_a_addr == 0 ? 0 : regs[i_a_addr];
+        o_b_data   = if i_b_addr == 0 ? 0 : regs[i_b_addr];
+        o_dbg_data = regs[i_dbg_addr];
+    }
+}
+
+#[test(regfile)]
+module RegFileTest {
+    inst clk     : $tb::clock_gen #( period: 10 );
+    inst rst     : $tb::reset_gen #( cycles: 1 )(clk);
+    var a_addr  : logic<5> ;
+    var b_addr  : logic<5> ;
+    var w_ena   : logic    ;
+    var w_addr  : logic<5> ;
+    var w_data  : logic<32>;
+    var dbg_addr: logic<5> ;
+    var a_data  : logic<32>;
+    var b_data  : logic<32>;
+    var dbg_data: logic<32>;
+
+    inst dut: RegFile (
+        i_clk     : clk     ,
+        i_reset   : rst     ,
+        i_a_addr  : a_addr  ,
+        i_b_addr  : b_addr  ,
+        i_w_ena   : w_ena   ,
+        i_w_addr  : w_addr  ,
+        i_w_data  : w_data  ,
+        i_dbg_addr: dbg_addr,
+        o_a_data  : a_data  ,
+        o_b_data  : b_data  ,
+        o_dbg_data: dbg_data,
+    );
+
+    initial {
+        a_addr     = 0;
+        b_addr     = 0;
+        w_ena      = 0;
+        w_addr     = 0;
+        w_data     = 0;
+        dbg_addr   = 0;
+        rst.assert();
+
+        // hold reset
+        $assert(a_data == 0, "a 0");
+        $assert(b_data == 0, "b 0");
+        $assert(dbg_data == 0, "dbg 0");
+
+        // release reset
+        clk.next();
+
+        // write to reg 0
+        w_ena    = 1;
+        w_data   = 10;
+        clk.next();
+
+        // write to reg 1
+        w_addr   = 1;
+        w_data   = 100;
+        clk.next();
+        $assert (dbg_data == 10, "gdb 10");
+
+        // write to reg 2
+        w_addr   = 2;
+        w_data   = 1000;
+        a_addr   = 1;
+        clk.next();
+        $assert (a_data == 100, "a 100");
+
+        // write to reg 2
+        w_ena    = 0;
+        b_addr   = 2;
+        clk.next();
+        $assert (b_data == 1000, "b 1000");
+
+        // reset
+        rst.assert();
+        $assert   (a_data == 0, "a 0");
+        $assert   (b_data == 0, "b 0");
+        $assert   (dbg_data == 0, "dbg 0");
+
+        clk.next();
+
+        $finish();
+    }
+}

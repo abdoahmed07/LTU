@@ -1,0 +1,43 @@
+module InvRep (
+    a  : input  logic<4>,
+    inv: input  logic   ,
+    r  : output logic<4>,
+) {
+    // invert each bit
+    assign r = a ^ {inv repeat 4};
+}
+
+#[test(Inv_rep_test)]
+module InvRep_test {
+    inst clk: $tb::clock_gen #( period: 10 );
+    var a  : logic<4>;
+    var inv: logic   ;
+
+    var r: logic<4>;
+
+    inst dut: InvRep (
+        a    ,
+        inv  ,
+        r    ,
+    );
+
+    initial {
+
+        a        = 0;
+        inv      = 0;
+        clk.next();
+
+        a        = 4;
+        inv      = 0;
+        clk.next();
+
+        a        = 0;
+        inv      = 1;
+        clk.next();
+
+        a        = 4;
+        inv      = 1;
+        clk.next();
+        $finish ();
+    }
+}

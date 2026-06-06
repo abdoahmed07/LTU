@@ -1,0 +1,26 @@
+module Inv (
+    a: input  logic<4>,
+    r: output logic<4>,
+) {
+    // invert each bit
+    assign r = a ^ 4'b1111;
+}
+
+#[test(Inv_test)]
+module Inv_test {
+    inst clk: $tb::clock_gen #( period: 10 );
+    var a  : logic<4>;
+    var r  : logic<4>;
+
+    inst dut: Inv (
+        a  ,
+        r  ,
+    );
+
+    initial {
+        a        = 0;
+        clk.next();
+        a        = 4;
+        $finish ();
+    }
+}

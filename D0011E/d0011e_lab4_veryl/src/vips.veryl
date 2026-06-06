@@ -1,0 +1,171 @@
+module Vips1 (
+    i_clk         : input  clock              ,
+    i_reset       : input  reset_async_high   ,
+    i_dbg_reg     : input  logic          <5> ,
+    o_dbg_reg_data: output logic          <32>,
+) {
+    var pc: logic<32>;
+
+    inst pcp4: PCPlus4 (
+        Clk  : i_clk  ,
+        Reset: i_reset,
+        Q    : pc     ,
+    );
+
+    var instr: logic<32>;
+
+    inst imem: InstrMem1 (
+        i_addr : pc   ,
+        o_instr: instr,
+    );
+
+    var opcode: logic<6> ;
+    var rs    : logic<5> ;
+    var rt    : logic<5> ;
+    var rd    : logic<5> ;
+    var imm   : logic<16>;
+    var funct : logic<6> ;
+
+    always_comb {
+        opcode = instr[31:26];
+        rs     = instr[25:21];
+        rt     = instr[20:16];
+        rd     = instr[15:11];
+        imm    = instr[15:0];
+        funct  = instr[5:0];
+    }
+
+    var reg_destination: logic   ;
+    var write_enable   : logic   ;
+    var sign_extend    : logic   ;
+    var alu_source     : logic   ;
+    var alu_sub        : logic   ;
+    var alu_op         : logic<2>;
+    var zero           : logic   ;
+
+    inst ctrl: Decoder1 (
+        opcode         ,
+        funct          ,
+        z              : zero          ,
+        reg_destination,
+        write_enable   ,
+        sign_extend    ,
+        alu_source     ,
+        alu_sub        ,
+        alu_op         ,
+    );
+
+    var w_addr: logic<5>;
+
+    always_comb {
+        w_addr = if reg_destination ? rd : rt;
+    }
+
+    var reg_a_data: logic<32>;
+    var reg_b_data: logic<32>;
+    var alu_result: logic<32>;
+
+    inst rf: RegFile (
+        i_clk     : i_clk         ,
+        i_reset   : i_reset       ,
+        i_a_addr  : rs            ,
+        i_b_addr  : rt            ,
+        i_w_ena   : write_enable  ,
+        i_w_addr  : w_addr        ,
+        i_w_data  : alu_result    ,
+        i_dbg_addr: i_dbg_reg     ,
+        o_a_data  : reg_a_data    ,
+        o_b_data  : reg_b_data    ,
+        o_dbg_data: o_dbg_reg_data,
+    );
+
+    var ext_imm: logic<32>;
+
+    inst extunit: Extend16to32 (
+        i_data    : imm        ,
+        i_sign_ext: sign_extend,
+        o_data    : ext_imm   ,
+    );
+
+    var alu_b: logic<32>;
+
+    always_comb {
+        alu_b = if alu_source ? ext_imm : reg_b_data;
+    }
+
+    inst alu: Alu32 (
+        A  : reg_a_data,
+        B  : alu_b     ,
+        Sub: alu_sub   ,
+        Op : alu_op    ,
+        R  : alu_result,
+        V  : _         ,
+        C  : _         ,
+        Z  : zero      ,
+    );
+}
+
+#[test(test_vips1)]
+module Vips1Test {
+    inst clk         : $tb::clock_gen #( period: 10 );
+    inst rst         : $tb::reset_gen #( cycles: 1 )(clk);
+    var dbg_reg     : logic<5> ;
+    var dbg_reg_data: logic<32>;
+
+    inst dut: Vips1 (
+        i_clk         : clk         ,
+        i_reset       : rst         ,
+        i_dbg_reg     : dbg_reg     ,
+        o_dbg_reg_data: dbg_reg_data,
+    );
+
+    initial {
+        dbg_reg = 0;
+
+        rst.assert();
+
+        clk.next();
+
+        clk.next();
+
+        dbg_reg  = 1;
+        clk.next();
+        $assert(dbg_reg_data == 8, "R1 not 8 after write of 0x08");
+
+        dbg_reg  = 2;
+        clk.next();
+        $assert(dbg_reg_data == 8, "R2 not 8 after write of 0x0c");
+
+        clk.next();
+        $assert(dbg_reg_data == 2, "R2 not 2 after write of 0x10");
+
+        dbg_reg  = 3;
+        clk.next();
+        $assert(dbg_reg_data == 32'hFFFFFFFA, "R3 not -6 after write of 0x14");
+
+        dbg_reg  = 4;
+        clk.next();
+        $assert(dbg_reg_data == 0, "R4 not 0 after write of 0x18");
+
+        clk.next();
+        $assert(dbg_reg_data == 1, "R4 not 1 after write of 0x1c");
+
+        dbg_reg  = 5;
+        clk.next();
+        $assert(dbg_reg_data == 1, "R5 not 1 after write of 0x20");
+
+        dbg_reg  = 6;
+        clk.next();
+        $assert(dbg_reg_data == 32'hFFFFFFFA, "R6 not -6 after write of 0x24");
+
+        dbg_reg  = 7;
+        clk.next();
+        $assert(dbg_reg_data == 8, "R7 not 8 after write of 0x28");
+
+        dbg_reg  = 8;
+        clk.next();
+        $assert(dbg_reg_data == 0, "R8 not 0 after write of 0x2c");
+
+        $finish();
+    }
+}

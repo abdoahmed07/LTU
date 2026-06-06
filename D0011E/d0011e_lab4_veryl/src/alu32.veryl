@@ -1,0 +1,47 @@
+module Alu32 (
+    A  : input  logic<32>,
+    B  : input  logic<32>,
+    Sub: input  logic    ,
+    Op : input  logic<2> ,
+    R  : output logic<32>,
+    V  : output logic    ,
+    C  : output logic    ,
+    Z  : output logic    ,
+) {
+    var and_r  : logic<32>;
+    var or_r   : logic<32>;
+    var arith_r: logic<32>;
+    var slt_r  : logic<32>;
+    var arith_v: logic    ;
+    var arith_c: logic    ;
+
+    assign and_r = A & B;
+    assign or_r  = A | B;
+
+    inst arith: Arith32 (
+        A  : A,
+        B  : B,
+        Sub: Sub,
+        R  : arith_r,
+        V  : arith_v,
+        C  : arith_c,
+    );
+
+    inst ze: ZeroExtend (
+        A: arith_r[31] ^ arith_v,
+        R: slt_r,
+    );
+
+    inst mux: FourToOneMux32 (
+        A : and_r,
+        B : or_r,
+        C : arith_r,
+        D : slt_r,
+        Op: Op,
+        R : R,
+    );
+
+    assign V = arith_v;
+    assign C = arith_c;
+    assign Z = ~|R;
+}

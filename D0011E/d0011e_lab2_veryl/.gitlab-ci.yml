@@ -1,0 +1,10 @@
+stages:
+  - teststage
+
+test-job:
+  stage: teststage
+  tags:
+    - docker
+  image: docker.io/mxmxchere/veryl:0.19.1
+  script:
+    - /veryl test

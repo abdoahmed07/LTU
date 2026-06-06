@@ -1,0 +1,14 @@
+module PLDcell (
+    x5: input logic,
+    x4: input logic,
+    x3: input logic,
+    x2: input logic,
+    x1: input logic,
+    x0: input logic,
+    inv: input logic,
+    y: output logic,
+) {
+    let p1: logic = x5 & x4 & x3;
+    let p2: logic = x2 & x1 & x0;
+    assign y = inv ^ (p1 | p2);
+}

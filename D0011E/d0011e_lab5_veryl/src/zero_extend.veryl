@@ -1,0 +1,6 @@
+module ZeroExtend (
+    A: input  logic    ,
+    R: output logic<32>,
+) {
+    assign R = {31'b0, A};
+}

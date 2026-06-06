@@ -1,0 +1,122 @@
+// Part 4: 9-complement  y = 9 - x  for BCD input x = (x3,x2,x1,x0)
+//
+// Equations:
+//   y0 = ~x0
+//   y1 =  x1
+//   y2 =  x1 ^ x2   =  (x1 & ~x2) | (~x1 & x2)
+//   y3 = ~(x3 | x2 | x1)
+module part4 (
+    x3: input  logic,
+    x2: input  logic,
+    x1: input  logic,
+    x0: input  logic,
+    y3: output logic,
+    y2: output logic,
+    y1: output logic,
+    y0: output logic,
+) {
+
+    // y0 = ~x0  →  inv=1, p1=x0, p2/p3 disabled (first input = 0)
+    inst pld_y0: PLDcell2 (
+        a3: 1'b1, a2: 1'b1, a1: 1'b1, a0: x0  ,
+        b3: 1'b0, b2: 1'b1, b1: 1'b1, b0: 1'b1,
+        c3: 1'b0, c2: 1'b1, c1: 1'b1, c0: 1'b1,
+        inv: 1'b1,
+        y  : y0,
+    );
+
+    // y1 = x1  →  inv=0, p1=x1, p2/p3 disabled
+    inst pld_y1: PLDcell2 (
+        a3: 1'b1, a2: 1'b1, a1: x1  , a0: 1'b1,
+        b3: 1'b0, b2: 1'b1, b1: 1'b1, b0: 1'b1,
+        c3: 1'b0, c2: 1'b1, c1: 1'b1, c0: 1'b1,
+        inv: 1'b0,
+        y  : y1,
+    );
+
+    // y2 = x1 ^ x2  →  use the cell's built-in XOR: inv=x2, p1=x1
+    inst pld_y2: PLDcell2 (
+        a3: 1'b1, a2: 1'b1, a1: 1'b1, a0: x1  ,
+        b3: 1'b0, b2: 1'b1, b1: 1'b1, b0: 1'b1,
+        c3: 1'b0, c2: 1'b1, c1: 1'b1, c0: 1'b1,
+        inv: x2,
+        y  : y2,
+    );
+    
+    // y3 = ~(x3|x2|x1)  →  inv=1, p1=x3, p2=x2, p3=x1
+    inst pld_y3: PLDcell2 (
+        a3: x3  , a2: 1'b1, a1: 1'b1, a0: 1'b1,
+        b3: 1'b1, b2: x2  , b1: 1'b1, b0: 1'b1,
+        c3: 1'b1, c2: 1'b1, c1: x1  , c0: 1'b1,
+        inv: 1'b1,
+        y  : y3,
+    );
+}
+
+#[test(part4_test)]
+module part4_test {
+    inst clk: $tb::clock_gen #( period: 10 );
+    var x3: logic;
+    var x2: logic;
+    var x1: logic;
+    var x0: logic;
+    var y3: logic;
+    var y2: logic;
+    var y1: logic;
+    var y0: logic;
+
+    inst dut: part4 (
+        x3: x3,
+        x2: x2,
+        x1: x1,
+        x0: x0,
+        y3: y3,
+        y2: y2,
+        y1: y1,
+        y0: y0,
+    );
+
+    initial {
+        // x=0 (0000) → y=9 (1001)
+        x3 = 0; x2 = 0; x1 = 0; x0 = 0; clk.next();
+        $assert(y3 == 1 && y2 == 0 && y1 == 0 && y0 == 1, "x=0: expected y=9 (1001)");
+
+        // x=1 (0001) → y=8 (1000)
+        x3 = 0; x2 = 0; x1 = 0; x0 = 1; clk.next();
+        $assert(y3 == 1 && y2 == 0 && y1 == 0 && y0 == 0, "x=1: expected y=8 (1000)");
+
+        // x=2 (0010) → y=7 (0111)
+        x3 = 0; x2 = 0; x1 = 1; x0 = 0; clk.next();
+        $assert(y3 == 0 && y2 == 1 && y1 == 1 && y0 == 1, "x=2: expected y=7 (0111)");
+
+        // x=3 (0011) → y=6 (0110)
+        x3 = 0; x2 = 0; x1 = 1; x0 = 1; clk.next();
+        $assert(y3 == 0 && y2 == 1 && y1 == 1 && y0 == 0, "x=3: expected y=6 (0110)");
+
+        // x=4 (0100) → y=5 (0101)
+        x3 = 0; x2 = 1; x1 = 0; x0 = 0; clk.next();
+        $assert(y3 == 0 && y2 == 1 && y1 == 0 && y0 == 1, "x=4: expected y=5 (0101)");
+
+        // x=5 (0101) → y=4 (0100)
+        x3 = 0; x2 = 1; x1 = 0; x0 = 1; clk.next();
+        $assert(y3 == 0 && y2 == 1 && y1 == 0 && y0 == 0, "x=5: expected y=4 (0100)");
+
+        // x=6 (0110) → y=3 (0011)
+        x3 = 0; x2 = 1; x1 = 1; x0 = 0; clk.next();
+        $assert(y3 == 0 && y2 == 0 && y1 == 1 && y0 == 1, "x=6: expected y=3 (0011)");
+
+        // x=7 (0111) → y=2 (0010)
+        x3 = 0; x2 = 1; x1 = 1; x0 = 1; clk.next();
+        $assert(y3 == 0 && y2 == 0 && y1 == 1 && y0 == 0, "x=7: expected y=2 (0010)");
+
+        // x=8 (1000) → y=1 (0001)
+        x3 = 1; x2 = 0; x1 = 0; x0 = 0; clk.next();
+        $assert(y3 == 0 && y2 == 0 && y1 == 0 && y0 == 1, "x=8: expected y=1 (0001)");
+
+        // x=9 (1001) → y=0 (0000)
+        x3 = 1; x2 = 0; x1 = 0; x0 = 1; clk.next();
+        $assert(y3 == 0 && y2 == 0 && y1 == 0 && y0 == 0, "x=9: expected y=0 (0000)");
+
+        $finish();
+    }
+}
