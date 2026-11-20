@@ -18,9 +18,63 @@ Social Responsibility (CSR). We will identify relevant challenges the
 company might face in its operation, and using both official channels and
 external voices, we will then analyse how well it is handling these challenges.
 
-= Description of Company
+#pagebreak()
+
+= Description
 
 // ~1 000 words
+
+Telia Company AB is a publicly traded telecommunications company
+headquartered in Solna, Sweden with operations in many other
+countries, in particular Finland and Norway. On its corporate website,
+it describes itself thus:
+
+#quote(block: true, attribution: [Telia [1]])[
+    We’re a leading telecommunications operator in the Nordic and
+    Baltic regions. Every day, we deliver world-class connectivity and
+    communications services to millions of customers through our
+    sustainable and secure networks – enabling people, businesses and
+    societies to thrive and grow. Our unique position at the center of
+    digitalization shapes our ambition to be a trusted and progressive
+    partner and gives us our purpose: to reinvent better connected
+    living.
+]
+
+A telecommunications (or telecom) operator is, broadly, a company or
+other entity which provides infrastructure for digital-electronic
+communication over long distances. In the modern day, the term usually
+entails a company which allows its customers to use their fibre or
+5G/4G networks as a subscription service for purposes such as making
+phone calls or, most importantly, Internet access. Such a company will
+typically purchase infrastructure for this purpose, such as by laying
+fibre cables and building 5G broadcast towers, then rent a certain
+amount of the digital bandwidth provided by these out to customers for
+a subscription fee (a "data plan"). Some operators instead themselves
+rent this infrastructure from another telecom operator, a process
+known as "roaming".
+
+Telia provides a number of digital services typical for a
+so-called telecom operator, including telephone networks, home
+broadband, and 4G/5G mobile networks. Telia claims to be the leading
+telecom operator in Sweden, and its fiber and 5G networks in the
+country are used to some extent by almost all other operators through
+roaming.
+
+The company traces its roots to the Swedish government agency
+Televerket, which had a state-endorsed monopoly on landline (and later
+mobile) telephony within Sweden until its corporatisation as Telia in
+the year 1993. In 2002 it would go on to merge with Finnish telecom
+operator Sonera, which had a similar history as a corporatised
+government agency. To this day the government of Sweden is its largest
+individual shareholder, owning 37% of the company. This makes its
+actions and business very important to scrutinise, since any company
+which is majority-owned by the Swedish government should in all
+respects be considered to be a representative of this government; to
+that end, Telia ought to act for the good of the people of Sweden much
+like the country's government should. Obviously there is no question
+that this obligates Telia to always conduct its business sustainably
+and responsibly. This report, of course, will investigate whether that
+is actually the case.
 
 = Sustainability Challenges
 
@@ -28,7 +82,12 @@ external voices, we will then analyse how well it is handling these challenges.
 
 // TODO do not include in final report
 These are the challenges faced by Telia:
-- Point 1
+- Telia offers services allowing customers to buy smartphones at
+  discounted prices if they also subscribe to Telia data plans, along
+  with upgrade plans allowing customers to replace their smartphones
+  about every year or so. Do they have plans for how to deal with the
+  electronic waste produced by encouraging customers to buy new
+  smartphones so often?
 - Point 2
 - Point 3
 - Point 4
@@ -37,6 +96,8 @@ These are the challenges faced by Telia:
 = Sustainability Work of the Company
 
 // ~1 000 words between this and the next heading
+
+- Talk about the bribery scandal thing
 
 = Foreign Interests
 
@@ -49,3 +110,6 @@ These are the challenges faced by Telia:
 = References
 
 // Remember to add references to any source you take information from!!!
+// TODO find a better solution than manually enumerating references
+#set enum(numbering: "[1]")
++ This is Telia (teliacompany.com, Telia Company AB) <telia_desc>
