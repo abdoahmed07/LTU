@@ -22,6 +22,14 @@ external voices, we will then analyse how well it is handling these challenges.
 
 // ~1 000 words
 
+Telia is one of the leading telecommunications operators in the Nordic and Baltic regions and have around 14,8 thousand employees, with a leading position in Sweden's telecom market. Telia provides mobile and broadband services to both private customers and businesses. While also providing TV and streaming, equipment and devices, ICT services and value-added infrastructure services such as operating data centers, leasing out network and capacity on Telia's mobile towers to smaller telecommunications companies. 
+
+These services result in Telia recording in 2025, 68.2 Billion SEK in service revenue and an adjusted EBITDA of 31.9 billion SEK for it's 25.4 million subscriptions spreading across the Nordic and Baltic. Sweden stands for nearly half of Telia EBITDA at 45% followed by Norway with 19%, Finland at third with 15%, Lithuania accounts for 7%, Estonia for 5% and other operation for the last 9%. In order to maintain and expand Telia's mobile and fiber network, Telia invested 12.8 Billion SEK (CAPEX) in expenditures. Even with 12.8 Billion SEK in expenditures into it's infrastructure, Telia ended 2025 with 9.3 Billion SEK in free cash flow. Resulting that 2025 is the first time in several years Telia managed to cover the entire shareholder dividend and with the strong results proposing to increase the dividend for 2025.   
+
+
+Sustainability part ..
+
+
 = Sustainability Challenges
 
 // ~500 words identifying at least 5 separate challenges
