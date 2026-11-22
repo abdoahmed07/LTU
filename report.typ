@@ -148,8 +148,6 @@ reuse, refurbishment and recycling.
 
 Engwall, M., Jerbrant, A., Karlson, B., & Storm, P. (2017). _Modern industriell ekonomi_ (1st ed.). Studentlitteratur.
 
-International Energy Agency. (n.d.). _Data centres and data transmission networks_. https://iea.org/energy-system/buildings/data-centres-and-data-transmission-networks
-
 ITU & UNITAR. (2024). _The Global E-waste Monitor 2024_. https://www.itu.int/en/ITU-D/Environment/Pages/Publications/The-Global-E-waste-Monitor-2024.aspx
 
 Kamiya, G., & Bertoldi, P. (2024). _Energy consumption in data centres and broadband communication networks in the EU_. European Commission, Joint Research Centre. https://publications.jrc.ec.europa.eu/repository/handle/JRC135926
