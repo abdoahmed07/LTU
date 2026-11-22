@@ -50,29 +50,31 @@ certain amount of the digital bandwidth provided by these out to customers for a
 subscription fee (a "data plan"). Some operators instead themselves rent this
 infrastructure from another telecom operator, a process known as "roaming".
 
-// TODO: this paragraph is temporary
+As a large telecom operator, Telia provides a full range of digital services
+including telephone networks, home broadband, and 4G/5G mobile networks. Telia
+provides its mobile and broadband services to both private customers and
+businesses. Additionally, the company leases out network and capacity on its
+mobile towers to many smaller telecommunications companies, making it a roaming
+provider. The company also operates multiple large data centres with associated
+colocation services. What this means is that businesses can, for a fee, run
+their own services (such as websites) on Telia's computing power as a cloud
+server. More recently, Telia has expanded into the home television market,
+offering streaming services alongside equipment and devices for cable
+television. Between 2018 and 2025, Telia operated a media division which
+included Nordic giants TV4 AB and C More Entertainment; in 2025 the company sold
+this division off in an effort to focus on its consumer services.
 
-Telia provides a number of digital services typical for a so-called telecom
-operator, including telephone networks, home broadband, and 4G/5G mobile
-networks. Telia claims to be the leading telecom operator in Sweden, and its
-fiber and 5G networks in the country are used to some extent by almost all other
-operators through roaming. Telia provides mobile and broadband services to both
-private customers and businesses, while also providing TV and streaming,
-equipment and devices, ICT services and value-added infrastructure services such
-as operating data centers, leasing out network and capacity on Telia's mobile
-towers to smaller telecommunications companies.
-
-These services result in Telia recording in 2025, 68.2 Billion SEK in service
+These services resulted in Telia recording in 2025, 68.2 Billion SEK in service
 revenue and an adjusted EBITDA of 31.9 billion SEK for it's 25.4 million
 subscriptions spreading across the Nordic and Baltic. Sweden stands for nearly
 half of Telia EBITDA at 45% followed by Norway with 19%, Finland at third with
 15%, Lithuania accounts for 7%, Estonia for 5% and other operation for the last
 9%. In order to maintain and expand Telia's mobile and fiber network, Telia
 invested 12.8 Billion SEK (CAPEX) in expenditures. Even with 12.8 Billion SEK in
-expenditures into it's infrastructure, Telia ended 2025 with 9.3 Billion SEK in
-free cash flow. Resulting that 2025 is the first time in several years Telia
-managed to cover the entire shareholder dividend and with the strong results
-proposing to increase the dividend for 2025.
+expenditures into its infrastructure, Telia ended 2025 with 9.3 Billion SEK in
+free cash flow. 2025 is the first time in several years Telia managed to cover
+the entire shareholder dividend and with the strong results the company is
+proposing to increase the dividend.
 
 The company traces its roots to the Swedish government agency Televerket, which
 had a state-endorsed monopoly on landline (and later mobile) telephony within
