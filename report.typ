@@ -7,7 +7,7 @@
 = Analysis of Telia From a Sustainability Perspective
 
 Nils Konradsson \
-Abdalla Nasreldin\ 
+Abdalla Nasreldin\
 // (add your names here) \
 Luleå University of Technology
 
@@ -114,7 +114,6 @@ efficient use of energy as part of environmental responsibility. Since Telia
 runs networks in several Nordic and Baltic countries, how it powers and builds
 out these networks matters for the goals.
 
-
 *E-waste and circularity.* As a mobile operator, Telia sells phones together
 with subscriptions, so what happens to old devices is a sustainability issue for
 the company and connects to SDG 12 (United Nations, n.d.-b). In 2022 the world
@@ -128,6 +127,37 @@ reuse, refurbishment and recycling.
 = Sustainability Work of the Company
 
 // ~1 000 words between this and the next heading
+*Climate.* Telia aims for net-zero emissions across its value chain by 2040, and
+the Science Based Targets initiative has approved the target (Telia Company,
+2025a). By 2030 it wants to cut emissions from its own operations by 90% and
+emissions in its value chain (scope 3) by at least 50%. Compared with 2018, it
+has cut 74% and 35% so far (Telia Company, 2026). The electricity it uses is
+renewable, which Telia verifies with Guarantees of Origin (Telia Company, 2026).
+The supply chain is the bigger problem. The consultancy Carbon Trust, which
+helps Telia measure these emissions, says scope 3 makes up 99% of its footprint
+(Carbon Trust, 2024), so Telia works with the suppliers behind about 65% of them
+to find more cuts (Telia Company, 2026). CDP gave Telia an A score in 2025,
+which puts it in the top 4% of the companies assessed (Telia Company, 2025b).
+Telia is an active participant in the UN Global Compact (United Nations Global
+Compact, n.d.), and its climate plan says all its markets are covered by the ISO
+14001 environmental management standard (Telia Company, 2026). Still, the plan
+has not been validated by an external party (Telia Company, 2026), and critics
+argue that buying certificates like Guarantees of Origin does not always lead to
+real emission cuts (European Commission, 2025).
+
+*E-waste.* Telia wants to reuse or recycle all waste from its operations by
+2030, apart from some legacy waste such as treated wooden poles, and the share
+was 95% in 2025 (Telia Company, 2026). It also sells refurbished phones, which
+were 4% of its smartphone sales in 2024 (Telia Company, 2025a). For old phones
+from customers the take-back rate was 13% in 2025, while Telia's target is 20%
+by 2028 (Telia Company, 2026). The industry association GSMA (n.d.) wants
+operators to collect used phones equal to at least 20% of the new ones they
+distribute by 2030, and to make sure all of them are repaired, reused or
+recycled in a controlled way. Telia's target fits this, but it is not there yet.
+Tele2 has a higher goal of 25% of distributed phones by 2027 (Tele2, n.d.),
+although the two companies may not measure it the same way. Telia's waste target
+also only covers its own operations, so most e-waste depends on whether
+customers return their phones.
 
 - Talk about the bribery scandal thing
 
@@ -146,7 +176,13 @@ reuse, refurbishment and recycling.
 #set enum(numbering: "[1]")
 + This is Telia (teliacompany.com, Telia Company AB) <telia_desc>
 
+Carbon Trust. (2024, May 20). _Delving into Telia's supply chain emissions_. https://www.carbontrust.com/our-work-and-impact/impact-stories/delving-into-telias-supply-chain-emissions
+
 Engwall, M., Jerbrant, A., Karlson, B., & Storm, P. (2017). _Modern industriell ekonomi_ (1st ed.). Studentlitteratur.
+
+European Commission. (2025, February 6). _Corporate renewable procurement: Greenwashing or key driver of the EU's clean industrial deal?_ Sustainable Energy Week. https://sustainable-energy-week.ec.europa.eu/news/corporate-renewable-procurement-greenwashing-or-key-driver-eus-clean-industrial-deal-2025-02-06_en
+
+GSMA. (n.d.). _Reuse, refurbish, recycle_. https://www.gsma.com/betterfuture/reuse-refurbish-recycle
 
 ITU & UNITAR. (2024). _The Global E-waste Monitor 2024_. https://www.itu.int/en/ITU-D/Environment/Pages/Publications/The-Global-E-waste-Monitor-2024.aspx
 
@@ -154,6 +190,16 @@ Kamiya, G., & Bertoldi, P. (2024). _Energy consumption in data centres and broad
 
 Lee, P. (2021). _Making smartphones sustainable: Live long and greener_. Deloitte. https://www2.deloitte.com/us/en/insights/industry/technology/technology-media-and-telecom-predictions/2022/environmental-impact-smartphones.html
 
+Tele2. (n.d.). _Environment_. https://www.tele2.com/sustainability/our-focus-areas/environment
+
+Telia Company. (2025a). _Climate transition plan_ [Report]. https://www.teliacompany.com/assets/u5c1v3pt22v8/5FFHI8T65YApr2BWJC8vug/115ef07c3f29ea8135b2a29fffd007b3/Telia_climate_transition_plan_March_2025.pdf
+
+Telia Company. (2025b, December 11). _Telia achieves CDP 'A' score for the first time_ [Press release]. https://news.cision.com/telia-company/r/telia-achieves-cdp--a--score-for-the-first-time,c4280485
+
+Telia Company. (2026). _Climate transition plan_ [Report]. https://www.teliacompany.com/assets/u5c1v3pt22v8/rfbTTHL14eswLdpbHyLVH/d1d133d09b48a2da633a5ee1ac16039d/Transition_Plan_2025.pdf
+
 United Nations. (n.d.-a). _Goal 7: Ensure access to affordable, reliable, sustainable and modern energy for all_. https://sdgs.un.org/goals/goal7
 
 United Nations. (n.d.-b). _Goal 12: Ensure sustainable consumption and production patterns_. https://sdgs.un.org/goals/goal12
+
+United Nations Global Compact. (n.d.). _Telia Company_ [Participant profile]. https://unglobalcompact.org/what-is-gc/participants/18662-Telia-Company
