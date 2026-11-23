@@ -90,22 +90,17 @@ should. Obviously there is no question that this obligates Telia to always
 conduct its business sustainably and responsibly. This report, of course, will
 investigate whether that is actually the case.
 
+#pagebreak()
+
 = Sustainability Challenges
 
 // ~500 words identifying at least 5 separate challenges
 
-// TODO do not include in final report
-These are the challenges faced by Telia:
-- Telia offers services allowing customers to buy smartphones at
-  discounted prices if they also subscribe to Telia data plans, along
-  with upgrade plans allowing customers to replace their smartphones
-  about every year or so. Do they have plans for how to deal with the
-  electronic waste produced by encouraging customers to buy new
-  smartphones so often?
-- Climate and energy use
-- E-waste and circularity
-- Point 4
-- Point 5
+There are numerous challenges faced by companies which need to be addressed for
+them to act in accordance with the United Nations' Sustainable Development
+Goals. We've identified the following broad areas which relate to Telia in
+particular, all of which the company should be addressing in order to follow
+international guidelines.
 
 *Climate and energy use.* Telecom networks and data centres need a lot of
 electricity, so the industry is closely connected to SDG 7, which includes
@@ -116,7 +111,6 @@ efficient use of energy as part of environmental responsibility. Since Telia
 runs networks in several Nordic and Baltic countries, how it powers and builds
 out these networks matters for the goals.
 
-
 *E-waste and circularity.* As a mobile operator, Telia sells phones together
 with subscriptions, so what happens to old devices is a sustainability issue for
 the company and connects to SDG 12 (United Nations, n.d.-b). In 2022 the world
@@ -126,6 +120,17 @@ first-year emissions come from manufacturing it (Lee, 2021), so replacing phones
 often harms the climate. Engwall et al. (2017, p. 443) describe the circular
 economy as treating waste as a raw material. Telia therefore needs to work with
 reuse, refurbishment and recycling.
+
+*Corruption and social responsibiliy.* Telia is directly one of the largest
+telecom/mobile operators by consumer base in the Nordic countries, not counting
+the numerous operators which partially or entirely use its mobile network for
+their own customers through roaming. This places the company in a highly
+influential position, where it has both a lot of financial resources and
+controls infrastructure which is essential to its competitors. It would be easy
+to exploit such a position to further increase the company's influence through
+unethical means such as bribery or blackmail. Telia needs to ensure that it acts
+in accordance with SDG 16 (United Nations, n.d.-c) and always conducts its
+business in a just and correct manner.
 
 = Sustainability Work of the Company
 
@@ -159,3 +164,5 @@ Lee, P. (2021). _Making smartphones sustainable: Live long and greener_. Deloitt
 United Nations. (n.d.-a). _Goal 7: Ensure access to affordable, reliable, sustainable and modern energy for all_. https://sdgs.un.org/goals/goal7
 
 United Nations. (n.d.-b). _Goal 12: Ensure sustainable consumption and production patterns_. https://sdgs.un.org/goals/goal12
+
+(United Nations, n.d.-b) United Nations. (n.d.-b). _Goal 12: Promote peaceful and inclusive societies for sustainable development, provide access to justice for all and build effective, accountable and inclusive institutions at all levels_. https://sdgs.un.org/goals/goal16
