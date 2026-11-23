@@ -1,6 +1,6 @@
 #set page(
   paper: "a4",
-  margin: 2.5cm
+  margin: 2.5cm,
 )
 
 // TODO figure out why this doesn't work on Macs
@@ -30,13 +30,13 @@ countries, in particular Finland and Norway. On its corporate website, it
 describes itself thus:
 
 #quote(block: true, attribution: [Telia [1]])[
-    We’re a leading telecommunications operator in the Nordic and Baltic
-    regions. Every day, we deliver world-class connectivity and communications
-    services to millions of customers through our sustainable and secure
-    networks – enabling people, businesses and societies to thrive and grow. Our
-    unique position at the center of digitalization shapes our ambition to be a
-    trusted and progressive partner and gives us our purpose: to reinvent better
-    connected living.
+  We’re a leading telecommunications operator in the Nordic and Baltic
+  regions. Every day, we deliver world-class connectivity and communications
+  services to millions of customers through our sustainable and secure
+  networks – enabling people, businesses and societies to thrive and grow. Our
+  unique position at the center of digitalization shapes our ambition to be a
+  trusted and progressive partner and gives us our purpose: to reinvent better
+  connected living.
 ]
 
 A telecommunications (or telecom) operator is, broadly, a company or other
@@ -50,29 +50,31 @@ certain amount of the digital bandwidth provided by these out to customers for a
 subscription fee (a "data plan"). Some operators instead themselves rent this
 infrastructure from another telecom operator, a process known as "roaming".
 
-// TODO: this paragraph is temporary
+As a large telecom operator, Telia provides a full range of digital services
+including telephone networks, home broadband, and 4G/5G mobile networks. Telia
+provides its mobile and broadband services to both private customers and
+businesses. Additionally, the company leases out network and capacity on its
+mobile towers to many smaller telecommunications companies, making it a roaming
+provider. The company also operates multiple large data centres with associated
+colocation services. What this means is that businesses can, for a fee, run
+their own services (such as websites) on Telia's computing power as a cloud
+server. More recently, Telia has expanded into the home television market,
+offering streaming services alongside equipment and devices for cable
+television. Between 2018 and 2025, Telia operated a media division which
+included Nordic giants TV4 AB and C More Entertainment; in 2025 the company sold
+this division off in an effort to focus on its consumer services.
 
-Telia provides a number of digital services typical for a so-called telecom
-operator, including telephone networks, home broadband, and 4G/5G mobile
-networks. Telia claims to be the leading telecom operator in Sweden, and its
-fiber and 5G networks in the country are used to some extent by almost all other
-operators through roaming. Telia provides mobile and broadband services to both
-private customers and businesses, while also providing TV and streaming,
-equipment and devices, ICT services and value-added infrastructure services such
-as operating data centers, leasing out network and capacity on Telia's mobile
-towers to smaller telecommunications companies.
-
-These services result in Telia recording in 2025, 68.2 Billion SEK in service
+These services resulted in Telia recording in 2025, 68.2 Billion SEK in service
 revenue and an adjusted EBITDA of 31.9 billion SEK for it's 25.4 million
 subscriptions spreading across the Nordic and Baltic. Sweden stands for nearly
 half of Telia EBITDA at 45% followed by Norway with 19%, Finland at third with
 15%, Lithuania accounts for 7%, Estonia for 5% and other operation for the last
 9%. In order to maintain and expand Telia's mobile and fiber network, Telia
 invested 12.8 Billion SEK (CAPEX) in expenditures. Even with 12.8 Billion SEK in
-expenditures into it's infrastructure, Telia ended 2025 with 9.3 Billion SEK in
-free cash flow. Resulting that 2025 is the first time in several years Telia
-managed to cover the entire shareholder dividend and with the strong results
-proposing to increase the dividend for 2025.
+expenditures into its infrastructure, Telia ended 2025 with 9.3 Billion SEK in
+free cash flow. 2025 is the first time in several years Telia managed to cover
+the entire shareholder dividend and with the strong results the company is
+proposing to increase the dividend.
 
 The company traces its roots to the Swedish government agency Televerket, which
 had a state-endorsed monopoly on landline (and later mobile) telephony within
@@ -88,22 +90,17 @@ should. Obviously there is no question that this obligates Telia to always
 conduct its business sustainably and responsibly. This report, of course, will
 investigate whether that is actually the case.
 
+#pagebreak()
+
 = Sustainability Challenges
 
 // ~500 words identifying at least 5 separate challenges
 
-// TODO do not include in final report
-These are the challenges faced by Telia:
-- Telia offers services allowing customers to buy smartphones at
-  discounted prices if they also subscribe to Telia data plans, along
-  with upgrade plans allowing customers to replace their smartphones
-  about every year or so. Do they have plans for how to deal with the
-  electronic waste produced by encouraging customers to buy new
-  smartphones so often?
-- Climate and energy use
-- E-waste and circularity
-- Point 4
-- Point 5
+There are numerous challenges faced by companies which need to be addressed for
+them to act in accordance with the United Nations' Sustainable Development
+Goals. We've identified the following broad areas which relate to Telia in
+particular, all of which the company should be addressing in order to follow
+international guidelines.
 
 *Climate and energy use.* Telecom networks and data centres need a lot of
 electricity, so the industry is closely connected to SDG 7, which includes
@@ -123,6 +120,17 @@ first-year emissions come from manufacturing it (Lee, 2021), so replacing phones
 often harms the climate. Engwall et al. (2017, p. 443) describe the circular
 economy as treating waste as a raw material. Telia therefore needs to work with
 reuse, refurbishment and recycling.
+
+*Corruption and social responsibiliy.* Telia is directly one of the largest
+telecom/mobile operators by consumer base in the Nordic countries, not counting
+the numerous operators which partially or entirely use its mobile network for
+their own customers through roaming. This places the company in a highly
+influential position, where it has both a lot of financial resources and
+controls infrastructure which is essential to its competitors. It would be easy
+to exploit such a position to further increase the company's influence through
+unethical means such as bribery or blackmail. Telia needs to ensure that it acts
+in accordance with SDG 16 (United Nations, n.d.-c) and always conducts its
+business in a just and correct manner.
 
 = Sustainability Work of the Company
 
@@ -201,5 +209,7 @@ Telia Company. (2026). _Climate transition plan_ [Report]. https://www.teliacomp
 United Nations. (n.d.-a). _Goal 7: Ensure access to affordable, reliable, sustainable and modern energy for all_. https://sdgs.un.org/goals/goal7
 
 United Nations. (n.d.-b). _Goal 12: Ensure sustainable consumption and production patterns_. https://sdgs.un.org/goals/goal12
+
+United Nations. (n.d.-c). _Goal 16: Promote peaceful and inclusive societies for sustainable development, provide access to justice for all and build effective, accountable and inclusive institutions at all levels_. https://sdgs.un.org/goals/goal16
 
 United Nations Global Compact. (n.d.). _Telia Company_ [Participant profile]. https://unglobalcompact.org/what-is-gc/participants/18662-Telia-Company
